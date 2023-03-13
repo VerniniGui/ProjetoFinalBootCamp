@@ -1,5 +1,6 @@
 package br.gama.itau.projetofinal.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +25,17 @@ public class MovimentacaoService {
         return movimentacaoInserica;
     }
 
-    // public List<Movimentacao> recuperarTodas(int numero) {
-    //     List<Movimentacao> lista = (List<Movimentacao>) repo.findAll();
-
-    //     for (Movimentacao movimentacao : lista) {
-    //         if (movimentacao.) {
-                
-    //         }
-    //     }
-    // }
+    public List<Movimentacao> recuperarTodas(int numero) {
+        List<Movimentacao> lista = (List<Movimentacao>) repo.findAll();
+        List<Movimentacao> moviConta = new ArrayList();
+        for (Movimentacao movimentacao : lista) {
+            if(movimentacao.getConta().getId() == numero) {
+                moviConta.add(movimentacao);
+            }
+        }
+        return moviConta;
+        
+    }
 
 
     
