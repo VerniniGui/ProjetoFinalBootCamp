@@ -36,12 +36,13 @@ public class ClienteService {
         return lClienteDTO;
     };
 
-    public Cliente recuperarPeloId(int id){
+    public ClienteDto recuperarPeloId(int id){
         Optional<Cliente> optional = repo.findById(id);
 
         if(optional.isPresent()){
             Cliente cliente = optional.get();
-            return cliente;
+            ClienteDto clienteDto = new ClienteDto(cliente);
+            return clienteDto;
         }
         return null;
 

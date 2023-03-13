@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ProjetofinalApplication<projetofinal>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.gama.itau.projetofinal.ProjetofinalApplication",
+            "projectName": "projetofinal",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
