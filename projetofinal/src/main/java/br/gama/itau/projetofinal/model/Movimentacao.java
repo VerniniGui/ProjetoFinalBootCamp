@@ -36,10 +36,10 @@ public class Movimentacao {
     @Column
     public int tipo;
 
-    // @ManyToOne
-    // @JoinColumn(name = "numero_conta")
-    // @JsonIgnoreProperties("conta")
-    // private Conta conta;
+    @ManyToOne
+    @JoinColumn(name = "numero_conta")
+    @JsonIgnoreProperties("conta")
+    private Conta conta;
 
 
 
