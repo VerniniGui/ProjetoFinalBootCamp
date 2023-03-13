@@ -23,15 +23,13 @@ public class Conta {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private int id;
-
-
 private int agencia;
 private int conta;
 private double saldo;
 
 @OneToOne
 @JoinColumn(name = "id_cliente")
-@JsonIgnoreProperties ("contas")
-private Cliente cliente;
+@JsonIgnoreProperties ("listaContas")
+private Cliente idCliente;
 
 }
