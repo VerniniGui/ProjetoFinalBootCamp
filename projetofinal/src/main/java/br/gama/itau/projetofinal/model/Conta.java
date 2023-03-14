@@ -37,6 +37,6 @@ private Cliente idCliente;
 
 @OneToMany
 @JsonIgnoreProperties("conta")
-private List<Movimentacao>listaMovimentacao;
+private List<Movimentacao> listaMovimentacao;
 
 }

@@ -7,8 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import br.gama.itau.projetofinal.model.Conta;
+import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.repository.ContaRepo;
 
 @Service
@@ -55,5 +55,13 @@ public class ContaService {
             }
         }
         return listId;
+    }
+
+    public List<Movimentacao> recuperarMovimentacoes(int id) {
+        Optional<Conta> optional = repo.findById(id);
+        Conta conta = (Conta) optional.get();
+
+        return conta.getListaMovimentacao();
+
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.service.MovimentacaoService;
 
+
 @Controller
 @RequestMapping("/movimentacao")
 public class MovimentacaoController {
@@ -32,9 +33,9 @@ public class MovimentacaoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(movimentacaoInserida);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<Movimentacao>> getTodas(@PathVariable Integer numero ) {
-        List<Movimentacao> recuperarMovimentacao = service.recuperarTodas(numero);
-        return ResponseEntity.ok(recuperarMovimentacao);
-    }
+    // @GetMapping("/{id}")
+    // public ResponseEntity<List<Movimentacao>> getTodas(@PathVariable int id ) {
+    //     List<Movimentacao> recuperarMovimentacao = service.recuperarTodas(id);
+    //     return ResponseEntity.ok(recuperarMovimentacao);
+    // }
 }

@@ -25,17 +25,17 @@ public class MovimentacaoService {
         return movimentacaoInserica;
     }
 
-    public List<Movimentacao> recuperarTodas(int numero) {
-        List<Movimentacao> lista = (List<Movimentacao>) repo.findAll();
-        List<Movimentacao> moviConta = new ArrayList<Movimentacao>();
-        for (Movimentacao movimentacao : lista) {
-            if(movimentacao.getConta().getId() == numero) {
-                moviConta.add(movimentacao);
-            }
-        }
-        return moviConta;
+    // public List<Movimentacao> recuperarTodas(int id) {
+    //     List<Movimentacao> lista = (List<Movimentacao>) repo.findAll();
+    //     List<Movimentacao> moviConta = new ArrayList<>();
+    //     for (Movimentacao movimentacao : lista) {
+    //         if(movimentacao.getConta().getId() == id) {
+    //             moviConta.add(movimentacao);
+    //         }
+    //     }
+    //     return moviConta;
         
-    }
+    // }
 
 
     

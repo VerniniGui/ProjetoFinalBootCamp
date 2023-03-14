@@ -1,6 +1,5 @@
 package br.gama.itau.projetofinal.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.gama.itau.projetofinal.model.Conta;
+import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.service.ContaService;
 
 @RestController
@@ -22,23 +22,28 @@ public class ContaController {
     @Autowired
     private ContaService service;
 
-    @GetMapping("/contas/{id}")
-    public ResponseEntity <Conta> recuperaPeloNumero (@PathVariable Integer id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Conta> recuperaPeloNumero(@PathVariable Integer id) {
         return ResponseEntity.ok(service.recuperarPeloNumero(id));
     }
 
     @GetMapping("/contas/clientes/{id}")
-    public ResponseEntity <List<Conta>> recuperarConta (@PathVariable Integer id) {
+    public ResponseEntity<List<Conta>> recuperarConta(@PathVariable Integer id) {
         List<Conta> list = service.recuperarContasPeloCliente(id);
         return ResponseEntity.ok(list);
     }
-    
-@PostMapping("/contas")
-public ResponseEntity<Conta> adicionarConta(@RequestBody Conta conta){
 
-    Conta novaConta = service.adiconarConta(conta) ;
-    return ResponseEntity.ok(novaConta);
-}
+    @PostMapping("/contas")
+    public ResponseEntity<Conta> adicionarConta(@RequestBody Conta conta) {
 
+        Conta novaConta = service.adiconarConta(conta);
+        return ResponseEntity.ok(novaConta);
+    }
 
+    @GetMapping("/contas/movimentacao/{id}")
+    public ResponseEntity<List<Movimentacao>> getTodasMovimentacao(@PathVariable Integer id) {
+        
+        return ResponseEntity.ok(service.recuperarMovimentacoes(id));
+    }
+ 
 }
