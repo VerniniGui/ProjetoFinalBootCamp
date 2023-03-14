@@ -32,8 +32,8 @@ public class MovimentacaoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(movimentacaoInserida);
     }
 
-    @GetMapping("movimentacao/{id}")
-    public ResponseEntity<List<Movimentacao>> getTodas(@PathVariable int numero ) {
+    @GetMapping("/{id}")
+    public ResponseEntity<List<Movimentacao>> getTodas(@PathVariable Integer numero ) {
         List<Movimentacao> recuperarMovimentacao = service.recuperarTodas(numero);
         return ResponseEntity.ok(recuperarMovimentacao);
     }
