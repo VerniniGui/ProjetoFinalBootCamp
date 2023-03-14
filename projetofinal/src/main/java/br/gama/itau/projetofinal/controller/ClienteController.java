@@ -20,27 +20,26 @@ import br.gama.itau.projetofinal.service.ClienteService;
 public class ClienteController {
     @Autowired
     private ClienteService service;
-    
 
     @GetMapping
-    public ResponseEntity<List<ClienteDto>> recuperartodos(){
-    List<ClienteDto> listaClientes = service.recuperarTodos();
-    
-    if(listaClientes.isEmpty()){
-        return ResponseEntity.notFound().build();
-    }
-    
-    return ResponseEntity.ok(listaClientes);
+    public ResponseEntity<List<ClienteDto>> recuperartodos() {
+        List<ClienteDto> listaClientes = service.recuperarTodos();
+
+        if (listaClientes.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(listaClientes);
 
     }
 
     @GetMapping("/clientes/{id}")
-    public ResponseEntity<ClienteDto> recuperaPeloId(@PathVariable int id){
-    return ResponseEntity.ok(service.recuperarPeloId(id));
+    public ResponseEntity<ClienteDto> recuperaPeloId(@PathVariable int id) {
+        return ResponseEntity.ok(service.recuperarPeloId(id));
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> cadastrarcliente(@RequestBody Cliente cliente){
+    public ResponseEntity<Cliente> cadastrarcliente(@RequestBody Cliente cliente) {
         service.cadastrarCliente(cliente);
         return ResponseEntity.ok(cliente);
     }
