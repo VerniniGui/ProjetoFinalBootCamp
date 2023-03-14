@@ -33,9 +33,10 @@ public class ClienteController {
 
     }
 
-    @GetMapping("/clientes/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ClienteDto> recuperaPeloId(@PathVariable int id) {
-        return ResponseEntity.ok(service.recuperarPeloId(id));
+        ClienteDto cliente = service.recuperarPeloId(id);
+        return ResponseEntity.ok(cliente);
     }
 
     @PostMapping
