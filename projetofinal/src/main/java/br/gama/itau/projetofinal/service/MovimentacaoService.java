@@ -27,7 +27,7 @@ public class MovimentacaoService {
 
     public List<Movimentacao> recuperarTodas(int numero) {
         List<Movimentacao> lista = (List<Movimentacao>) repo.findAll();
-        List<Movimentacao> moviConta = new ArrayList();
+        List<Movimentacao> moviConta = new ArrayList<Movimentacao>();
         for (Movimentacao movimentacao : lista) {
             if(movimentacao.getConta().getId() == numero) {
                 moviConta.add(movimentacao);
