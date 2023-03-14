@@ -32,7 +32,7 @@ public class MovimentacaoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(movimentacaoInserida);
     }
 
-    @GetMapping("/movimentacao/{id}")
+    @GetMapping("movimentacao/{id}")
     public ResponseEntity<List<Movimentacao>> getTodas(@PathVariable int numero ) {
         List<Movimentacao> recuperarMovimentacao = service.recuperarTodas(numero);
         return ResponseEntity.ok(recuperarMovimentacao);
