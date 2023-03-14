@@ -1,5 +1,7 @@
 package br.gama.itau.projetofinal.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +45,14 @@ public class ContaService {
         return contaAtualizada;
     }
 
-    public Conta recuperarContasPeloCliente(int idCliente) {
-
-        return null;
+    public  List<Conta> recuperarContasPeloCliente(int idCliente) {
+        List<Conta> lista = (List<Conta>)repo.findAll();
+        List<Conta> listId = new ArrayList<>();
+        for (Conta conta : lista) {
+            if(conta.getIdCliente().equals(idCliente)) {
+                listId.add(conta);
+            }
+        }
+        return listId;
     }
 }
