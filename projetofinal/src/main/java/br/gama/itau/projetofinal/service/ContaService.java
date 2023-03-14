@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.gama.itau.projetofinal.model.Cliente;
+
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.repository.ContaRepo;
 
@@ -46,7 +46,7 @@ public class ContaService {
         return contaAtualizada;
     }
 
-    public  List<Conta> recuperarContasPeloCliente(Cliente idCliente) {
+    public  List<Conta> recuperarContasPeloCliente(int idCliente) {
         List<Conta> lista = (List<Conta>)repo.findAll();
         List<Conta> listId = new ArrayList<>();
         for (Conta conta : lista) {
