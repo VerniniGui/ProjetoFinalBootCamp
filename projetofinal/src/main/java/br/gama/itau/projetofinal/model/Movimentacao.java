@@ -38,7 +38,7 @@ public class Movimentacao {
 
     @ManyToOne
     @JoinColumn(name = "numero_conta")
-    @JsonIgnoreProperties("conta")
+    @JsonIgnoreProperties("listaMovimentacao")
     private Conta conta;
 
 
