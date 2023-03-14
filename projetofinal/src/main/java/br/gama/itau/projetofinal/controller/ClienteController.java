@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.gama.itau.projetofinal.dto.ClienteDto;
 import br.gama.itau.projetofinal.model.Cliente;
+import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.service.ClienteService;
 
 @RestController
@@ -43,5 +44,10 @@ public class ClienteController {
     public ResponseEntity<Cliente> cadastrarcliente(@RequestBody Cliente cliente) {
         service.cadastrarCliente(cliente);
         return ResponseEntity.ok(cliente);
+    }
+
+    @GetMapping("/contas/{id}")
+    public ResponseEntity<List<Conta>> recuperaContasCliente(@PathVariable Integer id){
+        return ResponseEntity.ok(service.recuperarContas(id));
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.gama.itau.projetofinal.dto.ClienteDto;
 import br.gama.itau.projetofinal.model.Cliente;
+import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.repository.ClienteRepo;
 
 @Service
@@ -47,6 +48,15 @@ public class ClienteService {
         return clienteDto;
 
     }
+
+    public List<Conta> recuperarContas(int id) {
+        Optional<Cliente> optional = repo.findById(id);
+        Cliente cliente = (Cliente) optional.get();
+
+        return cliente.getListaContas();
+
+    }
+
 
     
 }

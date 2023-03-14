@@ -27,13 +27,13 @@ public class ContaController {
         return ResponseEntity.ok(service.recuperarPeloNumero(id));
     }
 
-    @GetMapping("/contas/clientes/{id}")
-    public ResponseEntity<List<Conta>> recuperarConta(@PathVariable Integer id) {
-        List<Conta> list = service.recuperarContasPeloCliente(id);
-        return ResponseEntity.ok(list);
-    }
+    // @GetMapping("/contas/clientes/{id}")
+    // public ResponseEntity<List<Conta>> recuperarConta(@PathVariable Integer id) {
+    //     List<Conta> list = service.recuperarContasPeloCliente(id);
+    //     return ResponseEntity.ok(list);
+    // }
 
-    @PostMapping("/contas")
+    @PostMapping
     public ResponseEntity<Conta> adicionarConta(@RequestBody Conta conta) {
 
         Conta novaConta = service.adiconarConta(conta);
