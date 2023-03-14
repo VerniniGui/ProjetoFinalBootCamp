@@ -35,7 +35,7 @@ private double saldo;
 @JsonIgnoreProperties ("listaContas")
 private Cliente idCliente;
 
-@OneToMany
+@OneToMany(mappedBy = "conta")
 @JsonIgnoreProperties("conta")
 private List<Movimentacao> listaMovimentacao;
 

@@ -40,7 +40,7 @@ public class ContaController {
         return ResponseEntity.ok(novaConta);
     }
 
-    @GetMapping("/contas/movimentacao/{id}")
+    @GetMapping("/movimentacao/{id}")
     public ResponseEntity<List<Movimentacao>> getTodasMovimentacao(@PathVariable Integer id) {
         
         return ResponseEntity.ok(service.recuperarMovimentacoes(id));
