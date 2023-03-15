@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.gama.itau.projetofinal.dto.ClienteDto;
+import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.dto.MovimentacaoDto;
 
 import br.gama.itau.projetofinal.model.Conta;
@@ -20,9 +22,11 @@ public class ContaService {
     @Autowired
     private ContaRepo repo;
 
-    public Conta adiconarConta(Conta conta) throws NullPointerException {
-        Conta contaCadastrada = null;
 
+    @Autowired
+    private ClienteService clienteService;
+
+    public ContaDto adiconarConta(Conta conta) {
         if (conta.getAgencia().equals("0000")) {
             return null;
         }
@@ -38,18 +42,20 @@ public class ContaService {
         if (conta.getSaldo() < 0) {
             return null;
         }
-
-        contaCadastrada = repo.save(conta);
-
-        return contaCadastrada;
-
+        conta = repo.save(conta);
+        ClienteDto cliente = clienteService.recuperarPeloId(conta.getIdCliente().getId());
+        ContaDto contaDto = new ContaDto(conta);
+        contaDto.setNomeCliente(cliente.getNomeCliente());
+        
+        return contaDto;
     }
 
-    public Conta recuperarPeloNumero(int numero) {
+    public ContaDto recuperarPeloNumero(int numero) {
 
         Optional<Conta> optional = repo.findById(numero);
         Conta conta = optional.get();
-        return conta;
+        ContaDto contaDto = new ContaDto(conta);
+        return contaDto;
     }
 
     public Conta AlterarDados(Conta conta, int id) {
