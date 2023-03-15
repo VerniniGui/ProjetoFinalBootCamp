@@ -3,6 +3,7 @@ package br.gama.itau.projetofinal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.gama.itau.projetofinal.exception.HttpMessageNotReadableExceptionMy;
 import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.repository.MovimentacaoRepo;
 
@@ -12,9 +13,8 @@ public class MovimentacaoService {
     @Autowired
     private MovimentacaoRepo repo;
 
-
     public Movimentacao cadastrarMovimentacao(Movimentacao novaMovimentacao) {
-
+        Movimentacao movimentacaoInserida = null;
         if (novaMovimentacao.getNum() > 0) {
             return null;
         }
@@ -27,27 +27,26 @@ public class MovimentacaoService {
             return null;
         }
 
-        if (novaMovimentacao.getDescricao() == null) {
-            Movimentacao movimentacaoInserida = repo.save(novaMovimentacao);
-            return movimentacaoInserida;
+        try {
+            movimentacaoInserida = repo.save(novaMovimentacao);
+            
+        } catch (Exception e) {
+            throw new HttpMessageNotReadableExceptionMy("Data Inválida! tente: YYYY-MM-DD");
         }
-
-        Movimentacao movimentacaoInserida = repo.save(novaMovimentacao);
         return movimentacaoInserida;
+
     }
 
     // public List<Movimentacao> recuperarTodas(int id) {
-    //     List<Movimentacao> lista = (List<Movimentacao>) repo.findAll();
-    //     List<Movimentacao> moviConta = new ArrayList<>();
-    //     for (Movimentacao movimentacao : lista) {
-    //         if(movimentacao.getConta().getId() == id) {
-    //             moviConta.add(movimentacao);
-    //         }
-    //     }
-    //     return moviConta;
-        
+    // List<Movimentacao> lista = (List<Movimentacao>) repo.findAll();
+    // List<Movimentacao> moviConta = new ArrayList<>();
+    // for (Movimentacao movimentacao : lista) {
+    // if(movimentacao.getConta().getId() == id) {
+    // moviConta.add(movimentacao);
+    // }
+    // }
+    // return moviConta;
+
     // }
 
-
-    
 }

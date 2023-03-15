@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+
 @ControllerAdvice
 public class HandlerExceptions {
 
@@ -21,6 +22,7 @@ public class HandlerExceptions {
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
+
 
     @ExceptionHandler(MyNotFoundException.class)
     public ResponseEntity<ExceptionDetails> handlerNotFoundException(MyNotFoundException ex) {
@@ -40,6 +42,14 @@ public class HandlerExceptions {
                 .titulo("Erro na busca dos dados")
                 .mensagem(ex.getMessage())
                 .codigoStatus(HttpStatus.NOT_FOUND.value())
+
+    @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+    public ResponseEntity<ExceptionDetails> handlerHttpNotReadableException(org.springframework.http.converter.HttpMessageNotReadableException ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .titulo("Erro na solicitação")
+                .mensagem(ex.getMessage())
+                .codigoStatus(HttpStatus.BAD_REQUEST.value())
+
                 .timestamp(LocalDateTime.now())
                 .build();
 
