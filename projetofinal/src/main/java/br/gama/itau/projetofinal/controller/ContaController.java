@@ -33,7 +33,7 @@ public class ContaController {
         return ResponseEntity.ok(list);
     }
 
-    @PostMapping("/contas")
+    @PostMapping
     public ResponseEntity<Conta> adicionarConta(@RequestBody Conta conta) {
 
         Conta novaConta = service.adiconarConta(conta);

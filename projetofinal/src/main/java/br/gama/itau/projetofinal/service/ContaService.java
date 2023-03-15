@@ -1,6 +1,5 @@
 package br.gama.itau.projetofinal.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,16 +46,16 @@ public class ContaService {
         return contaAtualizada;
     }
 
-    public  List<Conta> recuperarContasPeloCliente(int idCliente) {
-        List<Conta> lista = (List<Conta>)repo.findAll();
-        List<Conta> listId = new ArrayList<>();
-        for (Conta conta : lista) {
-            if(conta.getIdCliente().equals(idCliente)) {
-                listId.add(conta);
-            }
-        }
-        return listId;
-    }
+    // public  List<Conta> recuperarContasPeloCliente(int idCliente) {
+    //     List<Conta> lista = (List<Conta>)repo.findAll();
+    //     List<Conta> listId = new ArrayList<>();
+    //     for (Conta conta : lista) {
+    //         if(conta.getIdCliente().equals(idCliente)) {
+    //             listId.add(conta);
+    //         }
+    //     }
+    //     return listId;
+    // }
 
     public List<MovimentacaoDto> recuperarMovimentacoes(int id) {
         Optional<Conta> optional = repo.findById(id);
@@ -72,4 +71,5 @@ public class ContaService {
         
 
     }
+
 }
