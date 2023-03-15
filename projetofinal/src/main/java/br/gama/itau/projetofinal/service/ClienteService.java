@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import br.gama.itau.projetofinal.dto.ClienteDto;
+import br.gama.itau.projetofinal.exception.DataIntegrityViolationException;
 import br.gama.itau.projetofinal.model.Cliente;
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.repository.ClienteRepo;
@@ -16,14 +18,27 @@ import br.gama.itau.projetofinal.repository.ClienteRepo;
 public class ClienteService {
     @Autowired
     private ClienteRepo repo;
-    
-    public Cliente cadastrarCliente(Cliente cliente){
+
+    public Cliente cadastrarCliente(Cliente cliente) {
+
         Cliente novoCliente = cliente;
-        repo.save(novoCliente);
+        
+
+        if (cliente.getNomeCliente() == null) {
+            cliente.setNomeCliente("Nome não cadastado");
+        }
+        
+        try {
+            repo.save(novoCliente);
+        } catch (Exception e) {
+            throw new DataIntegrityViolationException("Dados Invalidos");
+        }   
+        
         return novoCliente;
+
     };
 
-    public List<ClienteDto> recuperarTodos(){
+    public List<ClienteDto> recuperarTodos() {
         List<Cliente> list = (List<Cliente>) repo.findAll();
         List<ClienteDto> lClienteDTO = new ArrayList<>();
 
@@ -37,12 +52,12 @@ public class ClienteService {
         return lClienteDTO;
     };
 
-    public ClienteDto recuperarPeloId(int id){
+    public ClienteDto recuperarPeloId(int id) {
         Optional<Cliente> optional = repo.findById(id);
 
-        if(optional.isEmpty()){
+        if (optional.isEmpty()) {
             return null;
-        }       
+        }
         Cliente cliente = optional.get();
         ClienteDto clienteDto = new ClienteDto(cliente);
         return clienteDto;
@@ -57,6 +72,4 @@ public class ClienteService {
 
     }
 
-
-    
 }
