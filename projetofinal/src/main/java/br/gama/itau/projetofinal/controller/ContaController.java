@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.gama.itau.projetofinal.dto.MovimentacaoDto;
 import br.gama.itau.projetofinal.model.Conta;
-import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.service.ContaService;
 
 @RestController
@@ -27,11 +27,11 @@ public class ContaController {
         return ResponseEntity.ok(service.recuperarPeloNumero(id));
     }
 
-    // @GetMapping("/contas/clientes/{id}")
-    // public ResponseEntity<List<Conta>> recuperarConta(@PathVariable Integer id) {
-    //     List<Conta> list = service.recuperarContasPeloCliente(id);
-    //     return ResponseEntity.ok(list);
-    // }
+    @GetMapping("/clientes/{id}")
+    public ResponseEntity<List<Conta>> recuperarConta(@PathVariable Integer id) {
+        List<Conta> list = service.recuperarContasPeloCliente(id);
+        return ResponseEntity.ok(list);
+    }
 
     @PostMapping
     public ResponseEntity<Conta> adicionarConta(@RequestBody Conta conta) {
@@ -41,7 +41,7 @@ public class ContaController {
     }
 
     @GetMapping("/movimentacao/{id}")
-    public ResponseEntity<List<Movimentacao>> getTodasMovimentacao(@PathVariable Integer id) {
+    public ResponseEntity<List<MovimentacaoDto>> getTodasMovimentacao(@PathVariable Integer id) {
         
         return ResponseEntity.ok(service.recuperarMovimentacoes(id));
     }

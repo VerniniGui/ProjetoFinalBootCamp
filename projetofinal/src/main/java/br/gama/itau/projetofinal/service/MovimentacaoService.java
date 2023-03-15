@@ -18,8 +18,22 @@ public class MovimentacaoService {
         if (novaMovimentacao.getNum() > 0) {
             return null;
         }
-        Movimentacao movimentacaoInserica = repo.save(novaMovimentacao);
-        return movimentacaoInserica;
+
+        if (novaMovimentacao.getValor() < 0) {
+            return null;
+        }
+
+        if (novaMovimentacao.getTipo() != 1 && novaMovimentacao.getTipo() != 2) {
+            return null;
+        }
+
+        if (novaMovimentacao.getDescricao() == null) {
+            Movimentacao movimentacaoInserida = repo.save(novaMovimentacao);
+            return movimentacaoInserida;
+        }
+
+        Movimentacao movimentacaoInserida = repo.save(novaMovimentacao);
+        return movimentacaoInserida;
     }
 
     // public List<Movimentacao> recuperarTodas(int id) {

@@ -36,6 +36,9 @@ public class Movimentacao {
     @Column
     public int tipo;
 
+    @Column
+    public String descricao;
+
     @ManyToOne
     @JoinColumn(name = "numero_conta")
     @JsonIgnoreProperties("listaMovimentacao")
