@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.dto.MovimentacaoDto;
+import br.gama.itau.projetofinal.exception.MyNullPointerException;
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.service.ContaService;
 
@@ -30,21 +31,23 @@ public class ContaController {
 
     // @GetMapping("/clientes/{id}")
     // public ResponseEntity<List<Conta>> recuperarConta(@PathVariable Integer id) {
-    //     List<Conta> list = service.recuperarContasPeloCliente(id);
-    //     return ResponseEntity.ok(list);
+    // List<Conta> list = service.recuperarContasPeloCliente(id);
+    // return ResponseEntity.ok(list);
     // }
 
     @PostMapping
     public ResponseEntity<ContaDto> adicionarConta(@RequestBody Conta conta) {
 
+
         ContaDto novaConta = service.adiconarConta(conta);
         return ResponseEntity.ok(novaConta);
+
     }
 
     @GetMapping("/movimentacao/{id}")
     public ResponseEntity<List<MovimentacaoDto>> getTodasMovimentacao(@PathVariable Integer id) {
-        
+
         return ResponseEntity.ok(service.recuperarMovimentacoes(id));
     }
- 
+
 }
