@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.dto.MovimentacaoDto;
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.service.ContaService;
@@ -23,7 +24,7 @@ public class ContaController {
     private ContaService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Conta> recuperaPeloNumero(@PathVariable Integer id) {
+    public ResponseEntity<ContaDto> recuperaPeloNumero(@PathVariable Integer id) {
         return ResponseEntity.ok(service.recuperarPeloNumero(id));
     }
 
@@ -34,9 +35,9 @@ public class ContaController {
     // }
 
     @PostMapping
-    public ResponseEntity<Conta> adicionarConta(@RequestBody Conta conta) {
+    public ResponseEntity<ContaDto> adicionarConta(@RequestBody Conta conta) {
 
-        Conta novaConta = service.adiconarConta(conta);
+        ContaDto novaConta = service.adiconarConta(conta);
         return ResponseEntity.ok(novaConta);
     }
 

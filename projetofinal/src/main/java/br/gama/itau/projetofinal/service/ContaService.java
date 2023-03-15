@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.gama.itau.projetofinal.dto.ClienteDto;
+import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.dto.MovimentacaoDto;
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.model.Movimentacao;
@@ -19,17 +21,24 @@ public class ContaService {
     @Autowired
     private ContaRepo repo;
 
-    public Conta adiconarConta(Conta conta) {
+    @Autowired
+    private ClienteService clienteService;
 
-        repo.save(conta);
-        return conta;
+    public ContaDto adiconarConta(Conta conta) {
+        conta = repo.save(conta);
+        ClienteDto cliente = clienteService.recuperarPeloId(conta.getIdCliente().getId());
+        ContaDto contaDto = new ContaDto(conta);
+        contaDto.setNomeCliente(cliente.getNomeCliente());
+        
+        return contaDto;
     }
 
-    public Conta recuperarPeloNumero(int numero) {
+    public ContaDto recuperarPeloNumero(int numero) {
 
         Optional<Conta> optional = repo.findById(numero);
         Conta conta = optional.get();
-        return conta;
+        ContaDto contaDto = new ContaDto(conta);
+        return contaDto;
     }
 
     public Conta AlterarDados(Conta conta, int id) {
