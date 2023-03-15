@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.gama.itau.projetofinal.dto.ClienteDto;
-import br.gama.itau.projetofinal.exception.DataIntegrityViolationException;
+import br.gama.itau.projetofinal.exception.MyDataIntegrityViolationException;
+import br.gama.itau.projetofinal.exception.MyNotFoundException;
 import br.gama.itau.projetofinal.model.Cliente;
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.repository.ClienteRepo;
@@ -30,8 +31,8 @@ public class ClienteService {
         
         try {
             repo.save(novoCliente);
-        } catch (Exception e) {
-            throw new DataIntegrityViolationException("Dados Invalidos");
+        } catch (DataIntegrityViolationException e) {
+            throw new MyDataIntegrityViolationException("Dados Invalidos");
         }   
         
         return novoCliente;
@@ -42,8 +43,8 @@ public class ClienteService {
         List<Cliente> list = (List<Cliente>) repo.findAll();
         List<ClienteDto> lClienteDTO = new ArrayList<>();
 
-        if (list == null) {
-            return null;
+        if (list.isEmpty()) {
+            throw new MyNotFoundException("Nenhum cliente encontrado");
         }
         for (Cliente cliente : list) {
             lClienteDTO.add(new ClienteDto(cliente));

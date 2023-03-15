@@ -27,10 +27,6 @@ public class ClienteController {
     public ResponseEntity<List<ClienteDto>> recuperartodos() {
         List<ClienteDto> listaClientes = service.recuperarTodos();
 
-        if (listaClientes.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
         return ResponseEntity.ok(listaClientes);
 
     }

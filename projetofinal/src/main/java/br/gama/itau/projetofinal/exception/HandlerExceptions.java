@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class HandlerExceptions {
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ExceptionDetails> handlerNotFoundException(DataIntegrityViolationException ex) {
+    @ExceptionHandler(MyDataIntegrityViolationException.class)
+    public ResponseEntity<ExceptionDetails> handlerDataIntegrityViolationException(MyDataIntegrityViolationException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .titulo("Erro na solicitação")
                 .mensagem(ex.getMessage())
@@ -21,4 +21,17 @@ public class HandlerExceptions {
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(MyNotFoundException.class)
+    public ResponseEntity<ExceptionDetails> handlerNotFoundException(MyNotFoundException ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .titulo("Erro na solicitação")
+                .mensagem(ex.getMessage())
+                .codigoStatus(HttpStatus.NOT_FOUND.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
+    }
 }
+
