@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import br.gama.itau.projetofinal.dto.ClienteDto;
 import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.dto.MovimentacaoDto;
-
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.repository.ContaRepo;
@@ -21,7 +20,6 @@ public class ContaService {
 
     @Autowired
     private ContaRepo repo;
-
 
     @Autowired
     private ClienteService clienteService;
@@ -46,7 +44,7 @@ public class ContaService {
         ClienteDto cliente = clienteService.recuperarPeloId(conta.getIdCliente().getId());
         ContaDto contaDto = new ContaDto(conta);
         contaDto.setNomeCliente(cliente.getNomeCliente());
-        
+
         return contaDto;
     }
 

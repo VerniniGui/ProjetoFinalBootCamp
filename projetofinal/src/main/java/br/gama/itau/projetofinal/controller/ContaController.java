@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.dto.MovimentacaoDto;
-import br.gama.itau.projetofinal.exception.MyNullPointerException;
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.service.ContaService;
 

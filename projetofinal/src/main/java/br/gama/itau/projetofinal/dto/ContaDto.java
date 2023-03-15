@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter 
+@Getter
 @Setter
 @NoArgsConstructor
 public class ContaDto {
@@ -15,12 +15,11 @@ public class ContaDto {
     private double saldo;
     private String nomeCliente;
 
-    public ContaDto (Conta conta){
+    public ContaDto(Conta conta) {
         this.agencia = conta.getAgencia();
         this.conta = conta.getConta();
         this.saldo = conta.getSaldo();
         this.nomeCliente = conta.getIdCliente().getNomeCliente();
     }
 
-    
 }

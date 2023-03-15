@@ -44,7 +44,4 @@ public class Movimentacao {
     @JsonIgnoreProperties("listaMovimentacao")
     private Conta conta;
 
-
-
-    
 }

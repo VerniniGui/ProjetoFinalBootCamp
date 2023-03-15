@@ -29,7 +29,7 @@ public class MovimentacaoService {
 
         try {
             movimentacaoInserida = repo.save(novaMovimentacao);
-            
+
         } catch (Exception e) {
             throw new HttpMessageNotReadableExceptionMy("Data Inválida! tente: YYYY-MM-DD");
         }

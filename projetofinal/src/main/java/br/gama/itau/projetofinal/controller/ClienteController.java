@@ -47,7 +47,7 @@ public class ClienteController {
 
     @GetMapping("/contas/{id}")
     public ResponseEntity<List<Conta>> recuperaContasCliente(@PathVariable Integer id) {
-        
+
         try {
             return ResponseEntity.ok(service.recuperarContas(id));
         } catch (NoSuchElementException e) {
