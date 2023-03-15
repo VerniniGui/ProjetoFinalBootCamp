@@ -37,6 +37,11 @@ public class ContaController {
     public ResponseEntity<Conta> adicionarConta(@RequestBody Conta conta) {
 
         Conta novaConta = service.adiconarConta(conta);
+       
+       if(novaConta == null){
+
+        return ResponseEntity.badRequest().build();
+       }
         return ResponseEntity.ok(novaConta);
     }
 
