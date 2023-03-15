@@ -42,7 +42,12 @@ public class HandlerExceptions {
                 .titulo("Erro na busca dos dados")
                 .mensagem(ex.getMessage())
                 .codigoStatus(HttpStatus.NOT_FOUND.value())
+                .timestamp(LocalDateTime.now())
+                .build();
 
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
+    }    
+   
     @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
     public ResponseEntity<ExceptionDetails> handlerHttpNotReadableException(org.springframework.http.converter.HttpMessageNotReadableException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()

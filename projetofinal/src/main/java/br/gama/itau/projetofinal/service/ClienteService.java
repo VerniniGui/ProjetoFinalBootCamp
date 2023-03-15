@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import br.gama.itau.projetofinal.dto.ClienteDto;
 import br.gama.itau.projetofinal.exception.MyDataIntegrityViolationException;
-import br.gama.itau.projetofinal.exception.MyNoSuchElementException;
 import br.gama.itau.projetofinal.exception.MyNotFoundException;
 import br.gama.itau.projetofinal.model.Cliente;
 import br.gama.itau.projetofinal.model.Conta;
