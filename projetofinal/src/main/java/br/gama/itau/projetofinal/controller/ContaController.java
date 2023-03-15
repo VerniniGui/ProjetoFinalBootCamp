@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.gama.itau.projetofinal.dto.MovimentacaoDto;
+import br.gama.itau.projetofinal.exception.MyNullPointerException;
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.service.ContaService;
 
@@ -29,26 +30,31 @@ public class ContaController {
 
     // @GetMapping("/clientes/{id}")
     // public ResponseEntity<List<Conta>> recuperarConta(@PathVariable Integer id) {
-    //     List<Conta> list = service.recuperarContasPeloCliente(id);
-    //     return ResponseEntity.ok(list);
+    // List<Conta> list = service.recuperarContasPeloCliente(id);
+    // return ResponseEntity.ok(list);
     // }
 
     @PostMapping
     public ResponseEntity<Conta> adicionarConta(@RequestBody Conta conta) {
 
-        Conta novaConta = service.adiconarConta(conta);
-       
-       if(novaConta == null){
+        // if(novaConta == null){
 
-        return ResponseEntity.badRequest().build();
-       }
-        return ResponseEntity.ok(novaConta);
+        // return ResponseEntity.badRequest().build();
+        // }
+
+        try {
+            Conta novaConta = service.adiconarConta(conta);
+            return ResponseEntity.ok(novaConta);
+        } catch (NullPointerException e) {
+            throw new MyNullPointerException("Não foi possivel cadastrar o cliente");
+        }
+
     }
 
     @GetMapping("/movimentacao/{id}")
     public ResponseEntity<List<MovimentacaoDto>> getTodasMovimentacao(@PathVariable Integer id) {
-        
+
         return ResponseEntity.ok(service.recuperarMovimentacoes(id));
     }
- 
+
 }

@@ -60,5 +60,18 @@ public class HandlerExceptions {
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(MyNullPointerException.class)
+    public ResponseEntity<ExceptionDetails> handlerMyNullPointerException(MyNullPointerException ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .titulo("Erro na solicitação")
+                .mensagem(ex.getMessage())
+                .codigoStatus(HttpStatus.BAD_REQUEST.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
+    }
+
 }
 

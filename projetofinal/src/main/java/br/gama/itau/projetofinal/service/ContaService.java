@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.gama.itau.projetofinal.dto.MovimentacaoDto;
+
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.repository.ContaRepo;
@@ -19,10 +20,10 @@ public class ContaService {
     @Autowired
     private ContaRepo repo;
 
-    public Conta adiconarConta(Conta conta) {
-       Conta contaCadastrada = null;
+    public Conta adiconarConta(Conta conta) throws NullPointerException {
+        Conta contaCadastrada = null;
 
-        if (conta.getAgencia().equals("0000"))  {
+        if (conta.getAgencia().equals("0000")) {
             return null;
         }
 
@@ -32,26 +33,18 @@ public class ContaService {
 
         if (conta.getConta() != 1 && conta.getConta() != 2 && conta.getConta() != 3) {
             return null;
-       }
+        }
 
         if (conta.getSaldo() < 0) {
             return null;
         }
-       
-       try {
-         contaCadastrada = repo.save(conta);
-        
-       } catch (Exception e) {
-        
-       }
-       
-        
+
+        contaCadastrada = repo.save(conta);
+
         return contaCadastrada;
 
-        
     }
 
-    
     public Conta recuperarPeloNumero(int numero) {
 
         Optional<Conta> optional = repo.findById(numero);
@@ -73,7 +66,7 @@ public class ContaService {
 
         return contaAtualizada;
     }
-    
+
     public List<MovimentacaoDto> recuperarMovimentacoes(int id) {
         Optional<Conta> optional = repo.findById(id);
         Conta conta = (Conta) optional.get();
@@ -85,12 +78,6 @@ public class ContaService {
         }
         return listaMovDto;
 
-        
-
     }
-
-
-    
-
 
 }
