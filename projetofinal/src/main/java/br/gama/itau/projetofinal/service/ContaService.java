@@ -20,11 +20,38 @@ public class ContaService {
     private ContaRepo repo;
 
     public Conta adiconarConta(Conta conta) {
+       Conta contaCadastrada = null;
 
-        repo.save(conta);
-        return conta;
+        if (conta.getAgencia().equals("0000"))  {
+            return null;
+        }
+
+        if (conta.getAgencia().length() != 4) {
+            return null;
+        }
+
+        if (conta.getConta() != 1 && conta.getConta() != 2 && conta.getConta() != 3) {
+            return null;
+       }
+
+        if (conta.getSaldo() < 0) {
+            return null;
+        }
+       
+       try {
+         contaCadastrada = repo.save(conta);
+        
+       } catch (Exception e) {
+        
+       }
+       
+        
+        return contaCadastrada;
+
+        
     }
 
+    
     public Conta recuperarPeloNumero(int numero) {
 
         Optional<Conta> optional = repo.findById(numero);
@@ -62,17 +89,8 @@ public class ContaService {
 
     }
 
+
     
-    // public  List<Conta> recuperarContasPeloCliente(int idCliente) {
-    //     List<Conta> lista = (List<Conta>)repo.findAll();
-    //     List<Conta> listId = new ArrayList<>();
-    //     for (Conta conta : lista) {
-    //         if(conta.getIdCliente().equals(idCliente)) {
-    //             listId.add(conta);
-    //         }
-    //     }
-    //     return listId;
-    // }
 
 
 }
