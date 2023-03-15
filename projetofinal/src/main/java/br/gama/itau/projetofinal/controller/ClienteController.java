@@ -3,6 +3,7 @@ package br.gama.itau.projetofinal.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +38,7 @@ public class ClienteController {
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDto> recuperaPeloId(@PathVariable int id) {
         ClienteDto cliente = service.recuperarPeloId(id);
-        return ResponseEntity.ok(cliente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
     }
 
     @PostMapping
@@ -47,7 +48,7 @@ public class ClienteController {
     }
 
     @GetMapping("/contas/{id}")
-    public ResponseEntity<List<Conta>> recuperaContasCliente(@PathVariable Integer id){
+    public ResponseEntity<List<Conta>> recuperaContasCliente(@PathVariable Integer id) {
         return ResponseEntity.ok(service.recuperarContas(id));
     }
 }
