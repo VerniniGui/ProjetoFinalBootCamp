@@ -1,5 +1,6 @@
 package br.gama.itau.projetofinal.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -54,14 +55,28 @@ public class ContaController {
 
         try {
             List<MovimentacaoDto> listaMov = service.recuperarMovimentacoes(id);
-            if(listaMov.isEmpty()){
+            if (listaMov.isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
             return ResponseEntity.ok(service.recuperarMovimentacoes(id));
         } catch (NoSuchElementException e) {
-            throw new MyNoSuchElementException("Conta não encontrada");            
+            throw new MyNoSuchElementException("Conta não encontrada");
         }
-        
+
+    }
+
+    @GetMapping("/movimentacao/periodo/{id},{dataInicio},{dataFinal}")
+    public ResponseEntity<List<MovimentacaoDto>> getMovimentacaoByPeriodo(@PathVariable int id,
+            @PathVariable LocalDate dataInicio, @PathVariable LocalDate dataFinal) {
+        List<MovimentacaoDto> lista;
+
+        lista = service.retornaHistoricoMovimentacao(id, dataInicio, dataFinal);
+        if (lista.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(lista);
+
     }
 
 }

@@ -1,5 +1,8 @@
 package br.gama.itau.projetofinal.service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +38,12 @@ public class MovimentacaoService {
         }
         return movimentacaoInserida;
 
+    }
+
+    public List<Movimentacao> recuperarMovimentacaoPeriodo(LocalDate dataInicio, LocalDate datafinal) {
+        List<Movimentacao> listaMov = repo.findByDataOperacaoBetween(dataInicio, datafinal);
+
+        return listaMov;
     }
 
     // public List<Movimentacao> recuperarTodas(int id) {

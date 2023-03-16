@@ -1,5 +1,6 @@
 package br.gama.itau.projetofinal.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import br.gama.itau.projetofinal.dto.ClienteDto;
 import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.dto.MovimentacaoDto;
+import br.gama.itau.projetofinal.exception.MyNotFoundException;
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.repository.ContaRepo;
@@ -23,6 +25,9 @@ public class ContaService {
 
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private MovimentacaoService movimentacaoService;
 
     public ContaDto adiconarConta(Conta conta) {
         if (conta.getAgencia().equals("0000")) {
@@ -40,7 +45,7 @@ public class ContaService {
         if (conta.getSaldo() < 0) {
             return null;
         }
-        
+
         conta = repo.save(conta);
         ClienteDto cliente = clienteService.recuperarPeloId(conta.getIdCliente().getId());
         ContaDto contaDto = new ContaDto(conta);
@@ -83,6 +88,20 @@ public class ContaService {
         }
         return listaMovDto;
 
+    }
+
+    public List<MovimentacaoDto> retornaHistoricoMovimentacao(int id, LocalDate dataInicio, LocalDate dataFinal) throws MyNotFoundException{
+        List<Movimentacao> listaMoviDto =  movimentacaoService.recuperarMovimentacaoPeriodo(dataInicio, dataFinal);       
+        List<MovimentacaoDto> listaMoviDtoConta = new ArrayList<>();
+        
+        for (Movimentacao movimentacao : listaMoviDto) {
+            if(movimentacao.getConta().getId() == id){
+                listaMoviDtoConta.add(new MovimentacaoDto(movimentacao));
+            }
+            
+        }
+
+        return listaMoviDtoConta;
     }
 
 }

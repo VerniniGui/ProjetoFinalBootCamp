@@ -29,6 +29,12 @@ public class MovimentacaoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(movimentacaoInserida);
     }
 
+    // @GetMapping("/movimentacao/periodo/{id},{dataInicio},{dataFinal}")
+    // public ResponseEntity<List<MovimentacaoDto>> getMovimentacaoByPeriodo(@PathVariable int id, @PathVariable LocalDate dataInicio, @PathVariable LocalDate dataFinal){
+                           
+    //     return ResponseEntity.ok(service.recuperarMovimentacaoPeriodo(dataInicio, dataFinal));
+    // }
+
     // @GetMapping("/{id}")
     // public ResponseEntity<List<Movimentacao>> getTodas(@PathVariable int id ) {
     //     List<Movimentacao> recuperarMovimentacao = service.recuperarTodas(id);

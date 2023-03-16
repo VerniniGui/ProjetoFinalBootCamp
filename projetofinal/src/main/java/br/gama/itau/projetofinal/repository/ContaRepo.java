@@ -6,7 +6,4 @@ import br.gama.itau.projetofinal.model.Conta;
 
 public interface ContaRepo extends CrudRepository<Conta, Integer> {
 
-    
-} 
-    
-
+}
