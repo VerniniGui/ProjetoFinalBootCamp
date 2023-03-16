@@ -16,8 +16,16 @@ public class MovimentacaoService {
     @Autowired
     private MovimentacaoRepo repo;
 
+    // @Autowired
+    // private TransacaoService service;
+
     public Movimentacao cadastrarMovimentacao(Movimentacao novaMovimentacao) {
         Movimentacao movimentacaoInserida = null;
+
+        if (novaMovimentacao.getNum() == -1) {
+            repo.save(novaMovimentacao);
+            return null;
+        }
         if (novaMovimentacao.getNum() > 0) {
             return null;
         }
@@ -31,6 +39,13 @@ public class MovimentacaoService {
         }
 
         try {
+            // if (novaMovimentacao.getTipo() == 1) {
+                
+            //     service.depositar(novaMovimentacao.getConta().getId(), novaMovimentacao.valor);
+            // } else {
+            //     service.sacar(novaMovimentacao.getConta().getId(), novaMovimentacao.valor);
+            // }
+
             movimentacaoInserida = repo.save(novaMovimentacao);
 
         } catch (Exception e) {

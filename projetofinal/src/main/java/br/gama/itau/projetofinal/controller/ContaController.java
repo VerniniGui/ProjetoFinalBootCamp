@@ -29,7 +29,7 @@ public class ContaController {
     @GetMapping("/{id}")
     public ResponseEntity<ContaDto> recuperaPeloNumero(@PathVariable Integer id) {
         try {
-            return ResponseEntity.ok(service.recuperarPeloNumero(id));
+            return ResponseEntity.ok(service.recuperarPeloNumeroContaDto(id));
         } catch (NoSuchElementException e) {
             throw new MyNoSuchElementException("Conta não encontrada");
         }

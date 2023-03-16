@@ -54,12 +54,19 @@ public class ContaService {
         return contaDto;
     }
 
-    public ContaDto recuperarPeloNumero(int numero) {
+    public ContaDto recuperarPeloNumeroContaDto(int numero) {
 
         Optional<Conta> optional = repo.findById(numero);
         Conta conta = optional.get();
         ContaDto contaDto = new ContaDto(conta);
         return contaDto;
+    }
+
+    public Conta recuperarPeloNumero(int numero) {
+
+        Optional<Conta> optional = repo.findById(numero);
+        Conta conta = optional.get();
+        return conta;
     }
 
     public Conta AlterarDados(Conta conta, int id) {
@@ -102,6 +109,34 @@ public class ContaService {
         }
 
         return listaMoviDtoConta;
+    }
+
+    public boolean sacar (double valor, int id) {
+        Optional<Conta> optional = repo.findById(id);
+
+        if (optional.isPresent()) {
+            Conta conta = optional.get();
+            if (conta.getSaldo() <= valor) {
+                return false;
+            }
+            conta.setSaldo(conta.getSaldo()-valor);
+            repo.save(conta);
+            return true;
+        }
+        return false;
+
+    }
+
+    public boolean depositar (double valor, int id) {
+        Optional<Conta> optional = repo.findById(id);
+        if (optional.isPresent()) {
+            Conta conta = optional.get();
+            conta.setSaldo(conta.getSaldo()+valor);
+            repo.save(conta);
+            return true;
+        }
+        return false;
+
     }
 
 }
