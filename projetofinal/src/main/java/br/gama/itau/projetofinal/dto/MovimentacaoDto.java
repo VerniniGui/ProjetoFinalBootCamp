@@ -20,7 +20,9 @@ public class MovimentacaoDto {
         this.dataOperacao = movimentacao.getDataOperacao();
         this.tipo = movimentacao.getTipo();
         this.valor = movimentacao.getValor();
-        if (movimentacao.getDescricao() != null) {
+        if (movimentacao.getDescricao() == null) {
+            this.descricao = "Sem descrição";
+        }else{
             this.descricao = movimentacao.getDescricao();
         }
     }

@@ -40,6 +40,7 @@ public class ContaService {
         if (conta.getSaldo() < 0) {
             return null;
         }
+        
         conta = repo.save(conta);
         ClienteDto cliente = clienteService.recuperarPeloId(conta.getIdCliente().getId());
         ContaDto contaDto = new ContaDto(conta);

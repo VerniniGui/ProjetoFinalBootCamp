@@ -1,6 +1,7 @@
 package br.gama.itau.projetofinal.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.dto.MovimentacaoDto;
+import br.gama.itau.projetofinal.exception.MyNoSuchElementException;
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.service.ContaService;
 
@@ -25,7 +27,12 @@ public class ContaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ContaDto> recuperaPeloNumero(@PathVariable Integer id) {
-        return ResponseEntity.ok(service.recuperarPeloNumero(id));
+        try {
+            return ResponseEntity.ok(service.recuperarPeloNumero(id));
+        } catch (NoSuchElementException e) {
+            throw new MyNoSuchElementException("Conta não encontrada");
+        }
+
     }
 
     // @GetMapping("/clientes/{id}")
@@ -37,7 +44,6 @@ public class ContaController {
     @PostMapping
     public ResponseEntity<ContaDto> adicionarConta(@RequestBody Conta conta) {
 
-
         ContaDto novaConta = service.adiconarConta(conta);
         return ResponseEntity.ok(novaConta);
 
@@ -46,7 +52,16 @@ public class ContaController {
     @GetMapping("/movimentacao/{id}")
     public ResponseEntity<List<MovimentacaoDto>> getTodasMovimentacao(@PathVariable Integer id) {
 
-        return ResponseEntity.ok(service.recuperarMovimentacoes(id));
+        try {
+            List<MovimentacaoDto> listaMov = service.recuperarMovimentacoes(id);
+            if(listaMov.isEmpty()){
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(service.recuperarMovimentacoes(id));
+        } catch (NoSuchElementException e) {
+            throw new MyNoSuchElementException("Conta não encontrada");            
+        }
+        
     }
 
 }

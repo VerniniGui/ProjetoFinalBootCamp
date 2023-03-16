@@ -46,19 +46,19 @@ public class HandlerExceptions {
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
     }
-
-    @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+   @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
     public ResponseEntity<ExceptionDetails> handlerHttpNotReadableException(
             org.springframework.http.converter.HttpMessageNotReadableException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
-                .titulo("Erro na solicitação")
-                .mensagem(ex.getMessage())
+                .titulo("Tipo de dado invalido")
+                .mensagem("Formato da data invalido, tente YYYY/MM/DD")
                 .codigoStatus(HttpStatus.BAD_REQUEST.value())
 
                 .timestamp(LocalDateTime.now())
                 .build();
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
+ 
     }
 
     @ExceptionHandler(MyNullPointerException.class)
@@ -71,6 +71,20 @@ public class HandlerExceptions {
                 .build();
 
         return new ResponseEntity<>(exceptionDetails, HttpStatus.NOT_FOUND);
+    }
+
+
+    
+    @ExceptionHandler(org.springframework.web.method.annotation.MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ExceptionDetails> handlerMethodArgumentTypeMismatchException(org.springframework.web.method.annotation.MethodArgumentTypeMismatchException ex) {
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .titulo("Erro no dado inserido")
+                .mensagem("O id da conta deve ser um número inteiro")
+                .codigoStatus(HttpStatus.BAD_REQUEST.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
 }
