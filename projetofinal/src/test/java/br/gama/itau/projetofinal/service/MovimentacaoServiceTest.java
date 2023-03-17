@@ -2,6 +2,9 @@ package br.gama.itau.projetofinal.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -16,7 +19,7 @@ import br.gama.itau.projetofinal.util.GenerateMovimentacao;
 
 @ExtendWith(MockitoExtension.class)
 public class MovimentacaoServiceTest {
-    
+
     @InjectMocks
     private MovimentacaoService service;
 
@@ -26,7 +29,7 @@ public class MovimentacaoServiceTest {
     @Test
     public void cadastradaMovimentacao_returnMovimentacao_whenDadosvalidos() {
         BDDMockito.when(repo.save(ArgumentMatchers.any(Movimentacao.class)))
-            .thenReturn(GenerateMovimentacao.movimentacaoValida());
+                .thenReturn(GenerateMovimentacao.movimentacaoValida());
 
         Movimentacao movimentacao = service.cadastrarMovimentacao(GenerateMovimentacao.novaMovimentacao());
 
@@ -34,6 +37,44 @@ public class MovimentacaoServiceTest {
 
     }
 
-    
+    @Test
+    public void cadastradaMovimentacao_returnMovimentacao_whenNumeroMovimentacaoIgualMenosUm() {
+        BDDMockito.when(repo.save(ArgumentMatchers.any(Movimentacao.class)))
+                .thenReturn(GenerateMovimentacao.movimentacaoValida());
+
+        Movimentacao movimentacao = service.cadastrarMovimentacao(GenerateMovimentacao.movimentacaoIdMenosUm());
+
+        assertThat(movimentacao).isNotNull();
+    }
+
+    @Test
+    public void cadastradaMovimentacao_returnMovimentacao_whenValorMenorQueZero() {
+
+        Movimentacao movimentacao = service.cadastrarMovimentacao(GenerateMovimentacao.movimentacaoValorMenosUm());
+
+        assertThat(movimentacao).isNull();
+    }
+
+    @Test
+    public void cadastradaMovimentacao_returnMovimentacao_whenTipoInvalido() {
+
+        Movimentacao movimentacao = service.cadastrarMovimentacao(GenerateMovimentacao.movimentacaoTipoInvalido());
+
+        assertThat(movimentacao).isNull();
+    }
+
+    @Test
+    public void recuperarMovimentacaoPeriodo_returnlistaMovimentacao_whenQuandoAsDatasSaoValidas() {
+        BDDMockito
+                .when(repo.findByDataOperacaoBetween(ArgumentMatchers.any(LocalDate.class),
+                        ArgumentMatchers.any(LocalDate.class)))
+                .thenReturn(GenerateMovimentacao.listaValida());
+
+        LocalDate dataInicio = LocalDate.of(2023, 03, 15);
+        LocalDate dataFinal = LocalDate.of(2023, 03, 15);
+        List<Movimentacao> movimentacao = service.recuperarMovimentacaoPeriodo(dataInicio, dataFinal);
+
+        assertThat(movimentacao).isNotNull();
+    }
 
 }

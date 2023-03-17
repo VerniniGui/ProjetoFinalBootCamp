@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.gama.itau.projetofinal.exception.HttpMessageNotReadableExceptionMy;
 import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.repository.MovimentacaoRepo;
 
@@ -23,8 +22,9 @@ public class MovimentacaoService {
         Movimentacao movimentacaoInserida = null;
 
         if (novaMovimentacao.getNum() == -1) {
-            repo.save(novaMovimentacao);
-            return null;
+            
+            return repo.save(novaMovimentacao);
+            
         }
         if (novaMovimentacao.getNum() > 0) {
             return null;
@@ -38,7 +38,7 @@ public class MovimentacaoService {
             return null;
         }
 
-        try {
+       
             // if (novaMovimentacao.getTipo() == 1) {
                 
             //     service.depositar(novaMovimentacao.getConta().getId(), novaMovimentacao.valor);
@@ -48,9 +48,8 @@ public class MovimentacaoService {
 
             movimentacaoInserida = repo.save(novaMovimentacao);
 
-        } catch (Exception e) {
-            throw new HttpMessageNotReadableExceptionMy("Data Inválida! tente: YYYY-MM-DD");
-        }
+       
+        
         return movimentacaoInserida;
 
     }

@@ -57,4 +57,52 @@ public class GenerateMovimentacao {
             .conta(GenerateConta.contaValida())
             .build();
     }
+
+
+    public static Movimentacao movimentacaoIdMenosUm() {
+       
+        return Movimentacao.builder()
+            .num(-1)
+            .dataOperacao(LocalDate.of(2023, 03, 17))
+            .valor(1)
+            .tipo(1)
+            .descricao("teste")
+            .conta(GenerateConta.contaValida())
+            .build();
+    }
+
+    public static Movimentacao movimentacaoValorMenosUm() {
+       
+        return Movimentacao.builder()
+            .dataOperacao(LocalDate.of(2023, 03, 17))
+            .valor(-1)
+            .tipo(1)
+            .descricao("teste")
+            .conta(GenerateConta.contaValida())
+            .build();
+    }
+
+    public static Movimentacao movimentacaoTipoInvalido() {
+       
+        return Movimentacao.builder()
+            .dataOperacao(LocalDate.of(2023, 03, 17))
+            .valor(1)
+            .tipo(4)
+            .descricao("teste")
+            .conta(GenerateConta.contaValida())
+            .build();
+    }
+
+    public static Movimentacao movimentacaoDataInvalida() {
+       
+        return Movimentacao.builder()
+            .dataOperacao(LocalDate.of(20, 03, 17))
+            .valor(1)
+            .tipo(4)
+            .descricao("teste")
+            .conta(GenerateConta.contaValida())
+            .build();
+    }
+
+
 }
