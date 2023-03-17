@@ -82,6 +82,15 @@ public class ContaServiceTest {
     }
 
     @Test
+    public void adicionarConta_returnNull_whenSaldoMenorZero() {
+
+        ContaDto contaCriada = service.adiconarConta(GenerateConta.contaSaldoContaMenorZero());
+
+        assertThat(contaCriada).isNull();
+
+    }
+
+    @Test
     public void adicionarConta_returnNull_whenTipoContaInvalida() {
 
         ContaDto contaCriada = service.adiconarConta(GenerateConta.contaCodigoAgenciaInvalida());

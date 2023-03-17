@@ -73,4 +73,14 @@ public class GenerateConta {
                 .listaMovimentacao(GenerateMovimentacao.listaValida())
                 .build();
     }
+
+    public static Conta contaSaldoContaMenorZero() {
+        return Conta.builder()
+                .id(1)
+                .agencia("1234")
+                .conta(1)
+                .saldo(-1)
+                .idCliente(GenerateCliente.clienteValido())
+                .build();
+    }
 }

@@ -55,9 +55,7 @@ public class ContaService {
     }
 
     public ContaDto recuperarPeloNumeroContaDto(int numero) {
-
-        Optional<Conta> optional = repo.findById(numero);
-        Conta conta = optional.get();
+        Conta conta = recuperarPeloNumero(numero);
         ContaDto contaDto = new ContaDto(conta);
         return contaDto;
     }
