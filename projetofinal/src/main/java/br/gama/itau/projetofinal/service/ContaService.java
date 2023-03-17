@@ -85,23 +85,26 @@ public class ContaService {
     // }
 
     public List<MovimentacaoDto> recuperarMovimentacoes(int id) {
-        Optional<Conta> optional = repo.findById(id);
-        Conta conta = (Conta) optional.get();
-        List<MovimentacaoDto> listaMovDto = new ArrayList<>();
-        List<Movimentacao> listaMov = conta.getListaMovimentacao();
+        // Optional<Conta> optional = repo.findById(id);
+        // Conta conta = (Conta) optional.get();
+        // List<MovimentacaoDto> listaMovDto = new ArrayList<>();
+        // List<Movimentacao> listaMov = conta.getListaMovimentacao();
 
-        if(listaMov != null){
-            for (Movimentacao x : listaMov) {
-                listaMovDto.add(new MovimentacaoDto(x));
-            }
-            return listaMovDto;
-        }
+        // if(listaMov != null){
+        //     for (Movimentacao x : listaMov) {
+        //         listaMovDto.add(new MovimentacaoDto(x));
+        //     }
+        //     return listaMovDto;
+        // }
        
-        return null;
+        // return null;
+        LocalDate dataInicio = LocalDate.of(1945, 01, 02); //Data quando o Itaú foi criado
+        LocalDate dataFinal = LocalDate.now();
 
+        return retornaHistoricoMovimentacaoPorData(id, dataInicio, dataFinal);
     }
 
-    public List<MovimentacaoDto> retornaHistoricoMovimentacao(int id, LocalDate dataInicio, LocalDate dataFinal) throws MyNotFoundException{
+    public List<MovimentacaoDto> retornaHistoricoMovimentacaoPorData(int id, LocalDate dataInicio, LocalDate dataFinal) throws MyNotFoundException{
         List<Movimentacao> listaMoviDto =  movimentacaoService.recuperarMovimentacaoPeriodo(dataInicio, dataFinal);       
         List<MovimentacaoDto> listaMoviDtoConta = new ArrayList<>();
         
@@ -133,7 +136,7 @@ public class ContaService {
 
     public boolean depositar (double valor, int id) {
         Optional<Conta> optional = repo.findById(id);
-        if (optional.isPresent()) {
+        if (optional.isPresent() && valor > 0) {
             Conta conta = optional.get();
             conta.setSaldo(conta.getSaldo()+valor);
             repo.save(conta);

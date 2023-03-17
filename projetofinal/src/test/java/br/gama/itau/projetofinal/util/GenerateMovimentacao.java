@@ -28,4 +28,10 @@ public class GenerateMovimentacao {
 
         return listaValida;
     }
+
+    public static List<Movimentacao> listaVazia(){
+        List<Movimentacao> listaVazia = new ArrayList<>();
+
+        return listaVazia;
+    }
 }

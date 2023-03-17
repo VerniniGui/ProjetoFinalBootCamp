@@ -3,6 +3,7 @@ package br.gama.itau.projetofinal.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +20,11 @@ import br.gama.itau.projetofinal.dto.ClienteDto;
 import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.dto.MovimentacaoDto;
 import br.gama.itau.projetofinal.model.Conta;
+import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.repository.ContaRepo;
 import br.gama.itau.projetofinal.util.GenerateCliente;
 import br.gama.itau.projetofinal.util.GenerateConta;
+import br.gama.itau.projetofinal.util.GenerateMovimentacao;
 
 @ExtendWith(MockitoExtension.class)
 public class ContaServiceTest {
@@ -114,34 +117,54 @@ public class ContaServiceTest {
 
     @Test
     public void recuperarMovimentacoes_returnNull_whenNaoExisteLista() {
-        BDDMockito.when(repo.findById(ArgumentMatchers.any(Integer.class)))
-                .thenReturn(Optional.of(GenerateConta.contaValida()));
+        BDDMockito
+                .when(movimentacaoService.recuperarMovimentacaoPeriodo(ArgumentMatchers.any(LocalDate.class),
+                        ArgumentMatchers.any(LocalDate.class)))
+                .thenReturn(GenerateMovimentacao.listaVazia());
 
         List<MovimentacaoDto> novaLista = service.recuperarMovimentacoes(1);
 
-        assertThat(novaLista).isNull();
-        verify(repo, Mockito.times(1)).findById(1);
+        assertThat(novaLista).isEmpty();
+        
     }
 
-    // @Test
-    // public void recuperarMovimentacoes_returnListaMovimentacao_whenIdValido() {
-    // BDDMockito.when(repo.findById(ArgumentMatchers.any(Integer.class)))
-    // .thenReturn(Optional.of(GenerateConta.contaValida()));
-    // BDDMockito.when(conta.getListaMovimentacao())
-    // .thenReturn((GenerateMovimentacao.listaValida()));
+    @Test
+    public void recuperarMovimentacoes_returnListaMovimentacao_whenIdValido() {
+        BDDMockito
+                .when(movimentacaoService.recuperarMovimentacaoPeriodo(ArgumentMatchers.any(LocalDate.class),
+                        ArgumentMatchers.any(LocalDate.class)))
+                .thenReturn(GenerateMovimentacao.listaValida());
 
-    // List<MovimentacaoDto> novaLista = service.recuperarMovimentacoes(1);
+        List<Movimentacao> listaValida = GenerateMovimentacao.listaValida();
+        List<MovimentacaoDto> novaLista = service.recuperarMovimentacoes(1);
 
-    // assertThat(novaLista).isNotNull();
-    // verify(repo, Mockito.times(1)).findById(1);
-    // }
+        assertThat(novaLista).isNotNull();
+        assertThat(novaLista.size()).isEqualTo(listaValida.size());
+        
+    }
+
+    @Test
+    public void recuperarHistoricoMovimentacoesPorData_returnListaMovimentacao_whenIdAndDataInicioAndDataFinalValidos() {
+        BDDMockito
+                .when(movimentacaoService.recuperarMovimentacaoPeriodo(ArgumentMatchers.any(LocalDate.class),
+                        ArgumentMatchers.any(LocalDate.class)))
+                .thenReturn(GenerateMovimentacao.listaValida());
+
+        List<Movimentacao> listaValida = GenerateMovimentacao.listaValida();
+        LocalDate dataInicio = LocalDate.of(2023, 03, 15);
+        LocalDate dataFinal = LocalDate.of(2023, 03, 15);
+
+        List<MovimentacaoDto> novaLista = service.retornaHistoricoMovimentacaoPorData(1, dataInicio, dataFinal);
+
+        assertThat(novaLista).isNotNull();
+        assertThat(novaLista.size()).isEqualTo(listaValida.size());
+        verify(movimentacaoService, Mockito.times(1)).recuperarMovimentacaoPeriodo(dataInicio, dataFinal);
+    }
 
     @Test
     public void sacar_returnTrue_WhenIdContaEValorValidos() {
         BDDMockito.when(repo.findById(ArgumentMatchers.any(Integer.class)))
                 .thenReturn(Optional.of(GenerateConta.contaValida()));
-        BDDMockito.when(repo.save(ArgumentMatchers.any(Conta.class)))
-                .thenReturn((GenerateConta.contaValida()));
 
         boolean resposta = service.sacar(50, 1);
 
@@ -162,6 +185,34 @@ public class ContaServiceTest {
     public void sacar_returnFalse_WhenIdInvalido() {
 
         boolean resposta = service.sacar(200, 1);
+
+        assertThat(resposta).isFalse();
+    }
+
+    @Test
+    public void depositar_returnTrue_WhenIdEValorValidos() {
+        BDDMockito.when(repo.findById(ArgumentMatchers.any(Integer.class)))
+                .thenReturn(Optional.of(GenerateConta.contaValida()));
+
+        boolean resposta = service.depositar(200, 1);
+
+        assertThat(resposta).isTrue();
+    }
+
+    @Test
+    public void depositar_returnFalse_WhenValorInvalido() {
+        BDDMockito.when(repo.findById(ArgumentMatchers.any(Integer.class)))
+                .thenReturn(Optional.of(GenerateConta.contaSaldoContaInvalido()));
+
+        boolean resposta = service.depositar(0, 1);
+
+        assertThat(resposta).isFalse();
+    }
+
+    @Test
+    public void depositar_returnFalse_WhenIdInvalido() {
+
+        boolean resposta = service.depositar(200, 1);
 
         assertThat(resposta).isFalse();
     }

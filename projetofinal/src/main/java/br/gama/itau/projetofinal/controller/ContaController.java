@@ -70,7 +70,7 @@ public class ContaController {
             @PathVariable LocalDate dataInicio, @PathVariable LocalDate dataFinal) {
         List<MovimentacaoDto> lista;
 
-        lista = service.retornaHistoricoMovimentacao(id, dataInicio, dataFinal);
+        lista = service.retornaHistoricoMovimentacaoPorData(id, dataInicio, dataFinal);
         if (lista.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
