@@ -34,4 +34,27 @@ public class GenerateMovimentacao {
 
         return listaVazia;
     }
+
+
+    public static Movimentacao movimentacaoValida() {
+       
+        Movimentacao novaMovi = new Movimentacao(1,
+                LocalDate.now(),
+                200.0,
+                1,
+                "Teste1",
+                GenerateConta.contaValida());
+        return novaMovi;
+    }
+
+    public static Movimentacao novaMovimentacao() {
+       
+        return Movimentacao.builder()
+            .dataOperacao(LocalDate.of(2023, 03, 17))
+            .valor(1)
+            .tipo(1)
+            .descricao("teste")
+            .conta(GenerateConta.contaValida())
+            .build();
+    }
 }
