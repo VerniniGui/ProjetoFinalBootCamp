@@ -33,4 +33,44 @@ public class GenerateConta {
                 .build();
     }
 
+    public static Conta contaCodigoAgenciaInvalida() {
+        return Conta.builder()
+                .id(1)
+                .agencia("0000")
+                .conta(1)
+                .saldo(100)
+                .idCliente(GenerateCliente.clienteValido())
+                .build();
+    }
+    
+    public static Conta contaTipoInvalida() {
+        return Conta.builder()
+                .id(1)
+                .agencia("1234")
+                .conta(5)
+                .saldo(100)
+                .idCliente(GenerateCliente.clienteValido())
+                .build();
+    }
+
+    public static Conta contaSaldoContaInvalido() {
+        return Conta.builder()
+                .id(1)
+                .agencia("1234")
+                .conta(5)
+                .saldo(0)
+                .idCliente(GenerateCliente.clienteValido())
+                .build();
+    }
+
+    public static Conta contaListaValida() {
+        return Conta.builder()
+                .id(1)
+                .agencia("1234")
+                .conta(5)
+                .saldo(0)
+                .idCliente(GenerateCliente.clienteValido())
+                .listaMovimentacao(GenerateMovimentacao.listaValida())
+                .build();
+    }
 }

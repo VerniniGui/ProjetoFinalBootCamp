@@ -55,7 +55,7 @@ public class ContaController {
 
         try {
             List<MovimentacaoDto> listaMov = service.recuperarMovimentacoes(id);
-            if (listaMov.isEmpty()) {
+            if (listaMov == null) {
                 return ResponseEntity.notFound().build();
             }
             return ResponseEntity.ok(service.recuperarMovimentacoes(id));

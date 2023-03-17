@@ -62,27 +62,27 @@ public class ContaService {
         return contaDto;
     }
 
-    public Conta recuperarPeloNumero(int numero) {
+    public Conta recuperarPeloNumero(Integer numero) {
 
         Optional<Conta> optional = repo.findById(numero);
         Conta conta = optional.get();
         return conta;
     }
 
-    public Conta AlterarDados(Conta conta, int id) {
+    // public Conta alterarDados(Conta conta, int id) {
 
-        Optional<Conta> optional = repo.findById(id);
-        if (optional.isEmpty()) {
-            return null;
+    //     Optional<Conta> optional = repo.findById(id);
+    //     if (optional.isEmpty()) {
+    //         return null;
 
-        }
+    //     }
 
-        conta.setId(id);
+    //     conta.setId(id);
 
-        Conta contaAtualizada = repo.save(conta);
+    //     Conta contaAtualizada = repo.save(conta);
 
-        return contaAtualizada;
-    }
+    //     return contaAtualizada;
+    // }
 
     public List<MovimentacaoDto> recuperarMovimentacoes(int id) {
         Optional<Conta> optional = repo.findById(id);
@@ -90,10 +90,14 @@ public class ContaService {
         List<MovimentacaoDto> listaMovDto = new ArrayList<>();
         List<Movimentacao> listaMov = conta.getListaMovimentacao();
 
-        for (Movimentacao x : listaMov) {
-            listaMovDto.add(new MovimentacaoDto(x));
+        if(listaMov != null){
+            for (Movimentacao x : listaMov) {
+                listaMovDto.add(new MovimentacaoDto(x));
+            }
+            return listaMovDto;
         }
-        return listaMovDto;
+       
+        return null;
 
     }
 
