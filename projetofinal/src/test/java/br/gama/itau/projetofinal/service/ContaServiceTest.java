@@ -52,7 +52,7 @@ public class ContaServiceTest {
         BDDMockito.when(clienteService.recuperarPeloId(ArgumentMatchers.any(Integer.class)))
                 .thenReturn(new ClienteDto(GenerateCliente.clienteValido()));
 
-        Conta novaConta = GenerateConta.novaConta();
+        Conta novaConta = GenerateConta.novaConta2();
 
         ContaDto contaCriada = service.adiconarConta(novaConta);
 

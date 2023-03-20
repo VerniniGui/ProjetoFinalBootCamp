@@ -58,7 +58,7 @@ public class ContaController {
             if (listaMov == null) {
                 return ResponseEntity.notFound().build();
             }
-            return ResponseEntity.ok(service.recuperarMovimentacoes(id));
+            return ResponseEntity.ok(listaMov);
         } catch (NoSuchElementException e) {
             throw new MyNoSuchElementException("Conta não encontrada");
         }

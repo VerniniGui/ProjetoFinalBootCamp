@@ -15,6 +15,15 @@ public class GenerateCliente {
                 .build();
     }
 
+    public static Cliente novoCliente2() {
+        return Cliente.builder()
+            .nomeCliente("novoCliente 2")
+            .cpf("novoCpf 2")
+            .telefone("novoTelefone 2")
+            .build();
+    }
+    
+
     public static Cliente clienteValido() {
         return Cliente.builder()
                 .id(1)
