@@ -5,8 +5,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.LocalDate;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.gama.itau.projetofinal.model.Cliente;
 import br.gama.itau.projetofinal.model.Conta;
-import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.repository.ClienteRepo;
 import br.gama.itau.projetofinal.repository.ContaRepo;
 import br.gama.itau.projetofinal.repository.MovimentacaoRepo;
@@ -90,6 +87,7 @@ public class ContaControllerITTest {
 
     }
 
+    
     @Test
     public void getTodasMovimentacao() throws Exception {
         Cliente novoCliente = GenerateCliente.clienteNovo2();
@@ -98,7 +96,7 @@ public class ContaControllerITTest {
         Conta novaConta = GenerateConta.novaConta(cliente.getId());
         Conta contaCriada = contaRepo.save(novaConta);
 
-        movimentacaoRepo.save(GenerateMovimentacao.movimentacaoValida());
+        movimentacaoRepo.save(GenerateMovimentacao.movimentacaoDataValida1(contaCriada.getId()));
 
         ResultActions resposta = mockMvc.perform(get("/contas/movimentacao/{id}", contaCriada.getId())
                 .contentType(MediaType.APPLICATION_JSON));

@@ -17,8 +17,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import br.gama.itau.projetofinal.dto.ClienteDto;
+import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.exception.MyDataIntegrityViolationException;
-import br.gama.itau.projetofinal.exception.MyNoSuchElementException;
 import br.gama.itau.projetofinal.model.Cliente;
 import br.gama.itau.projetofinal.repository.ClienteRepo;
 import br.gama.itau.projetofinal.repository.ContaRepo;
@@ -84,26 +84,17 @@ public class ClienteServiceTest {
         assertThat(clienteRecuperado).isNotNull();
     }
 
+
     @Test
-    public void recuperarContas_returnNull_whenListaDeContasVazia() {    
-
-        assertThrows(MyNoSuchElementException.class, ()->{
-            service.recuperarContas(1);
-        });
-       
-
-    }
-
-    // @Test
-    // public void recuperarContas_returnListaDeContas_whenIdValido() {
-    //     BDDMockito.when(repo.findById(ArgumentMatchers.any(Integer.class)))
-    //             .thenReturn(Optional.of(GenerateCliente.clienteValido()));
+    public void recuperarContas_returnListaDeContas_whenIdValido() {
+        BDDMockito.when(repo.findById(ArgumentMatchers.any(Integer.class)))
+                .thenReturn(Optional.of(GenerateCliente.clienteValido()));
         
 
-    //     List<ContaDto> ListaDeContas = service.recuperarContas(1);
+        List<ContaDto> ListaDeContas = service.recuperarContas(1);
 
-    //     assertThat(ListaDeContas).isNotNull();
+        assertThat(ListaDeContas).isNotNull();
 
-    // }
+    }
 
 }

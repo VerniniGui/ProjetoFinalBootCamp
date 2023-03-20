@@ -46,8 +46,8 @@ public class ClienteControllerITTest {
 
     @BeforeEach
     public void setup() {
-        clienteRepo.deleteAll();
         contaRepo.deleteAll();
+        clienteRepo.deleteAll();
     }
 
 
@@ -68,7 +68,7 @@ public class ClienteControllerITTest {
 
     @Test
     public void recuperaPeloId_returnCliente_whenIdValido() throws Exception {
-        Cliente novoCliente = GenerateCliente.novoCliente();
+        Cliente novoCliente = GenerateCliente.novoCliente2();
 
         Cliente clienteCriado = clienteRepo.save(novoCliente);
 
@@ -82,7 +82,7 @@ public class ClienteControllerITTest {
 
     @Test
     public void cadastrarCliente_returnOk_whenClienteValido() throws Exception {
-        Cliente novoCliente = GenerateCliente.novoCliente();
+        Cliente novoCliente = GenerateCliente.novoCliente2();
         Cliente clienteCriado = clienteRepo.save(novoCliente);
 
         ResultActions resposta = mockMvc.perform(post("/clientes").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(clienteCriado)));

@@ -7,6 +7,16 @@ import br.gama.itau.projetofinal.model.Cliente;
 
 public class GenerateCliente {
 
+    public static Cliente clienteValido() {
+        return Cliente.builder()
+                .id(1)
+                .nomeCliente("ClienteValido 1")
+                .cpf("CpfValido 1")
+                .telefone("TelefoneValido 1")
+                .listaContas(GenerateConta.ListaDeContaValidaSemCliente())
+                .build();
+    }
+
     public static Cliente novoCliente() {
         return Cliente.builder()
                 .nomeCliente("novoCliente 1")
