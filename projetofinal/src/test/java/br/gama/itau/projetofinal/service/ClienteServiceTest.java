@@ -39,7 +39,7 @@ public class ClienteServiceTest {
     @Test
     public void cadastrarCliente_returnNovoCliente_WhenDadosValidos() {
         BDDMockito.when(repo.save(ArgumentMatchers.any(Cliente.class)))
-                .thenReturn(GenerateCliente.clienteValido());
+                .thenReturn(GenerateCliente.clienteNovo());
 
         Cliente novoCliente = GenerateCliente.novoCliente();
         Cliente clienteCriado = service.cadastrarCliente(novoCliente);
@@ -77,7 +77,7 @@ public class ClienteServiceTest {
     @Test
     public void recuperarPeloId_returnClienteValido_WhenIdValido() {
         BDDMockito.when(repo.findById(ArgumentMatchers.any(Integer.class)))
-                .thenReturn(Optional.of(GenerateCliente.clienteValido()));
+                .thenReturn(Optional.of(GenerateCliente.clienteNovo()));
 
         ClienteDto clienteRecuperado = service.recuperarPeloId(1);
 

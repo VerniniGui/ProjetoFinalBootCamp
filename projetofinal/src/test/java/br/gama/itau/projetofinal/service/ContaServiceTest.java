@@ -50,7 +50,7 @@ public class ContaServiceTest {
                 .thenReturn(GenerateConta.contaValida());
 
         BDDMockito.when(clienteService.recuperarPeloId(ArgumentMatchers.any(Integer.class)))
-                .thenReturn(new ClienteDto(GenerateCliente.clienteValido()));
+                .thenReturn(new ClienteDto(GenerateCliente.clienteNovo()));
 
         Conta novaConta = GenerateConta.novaConta2();
 

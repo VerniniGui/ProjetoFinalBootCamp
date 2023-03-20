@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDate;
 
 import org.hamcrest.CoreMatchers;
-import org.hibernate.jdbc.Expectations;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,14 +50,14 @@ public class ContaControllerITTest {
 
     @BeforeEach
     public void setup () {
+        movimentacaoRepo.deleteAll();
         contaRepo.deleteAll();
         clienteRepo.deleteAll();
-        movimentacaoRepo.deleteAll();
     }
 
     @Test
     public void recuperaPeloNumero_returnContaDto_whenNumeroValido() throws Exception {
-        Cliente novoCliente = GenerateCliente.clienteValido();
+        Cliente novoCliente = GenerateCliente.clienteNovo2();
         Cliente cliente = clienteRepo.save(novoCliente);
 
         Conta novaConta = GenerateConta.novaConta(cliente.getId());
@@ -76,7 +75,7 @@ public class ContaControllerITTest {
 
     @Test
     public void adicionarConta_returnOk_wheContaValida() throws Exception {
-        Cliente novoCliente = GenerateCliente.clienteValido();
+        Cliente novoCliente = GenerateCliente.clienteNovo2();
         Cliente cliente = clienteRepo.save(novoCliente);
 
         Conta novaConta = GenerateConta.novaConta(cliente.getId());
@@ -93,7 +92,7 @@ public class ContaControllerITTest {
 
     @Test
     public void getTodasMovimentacao() throws Exception {
-        Cliente novoCliente = GenerateCliente.clienteValido();
+        Cliente novoCliente = GenerateCliente.clienteNovo2();
         Cliente cliente = clienteRepo.save(novoCliente);
 
         Conta novaConta = GenerateConta.novaConta(cliente.getId());
@@ -109,14 +108,14 @@ public class ContaControllerITTest {
 
     // @Test
     // public void getMovimentacaoByPeriodo_retornaListMovimentacao_whenPeriodoValido () throws Exception {
-    //     Cliente novoCliente = GenerateCliente.clienteValido();
+    //     Cliente novoCliente = GenerateCliente.clienteNovo2();
     //     Cliente cliente = clienteRepo.save(novoCliente);
 
     //     Conta novaConta = GenerateConta.contaListaValida2(cliente.getId());
     //     Conta contaCriada = contaRepo.save(novaConta);
 
-    //     // Movimentacao mov1 = movimentacaoRepo.save(GenerateMovimentacao.movimentacaoDataValida1(contaCriada.getId()));
-    //     // Movimentacao mov2 = movimentacaoRepo.save(GenerateMovimentacao.movimentacaoDataValida2(contaCriada.getId()));
+    //     Movimentacao mov1 = movimentacaoRepo.save(GenerateMovimentacao.movimentacaoDataValida1(contaCriada.getId()));
+    //     Movimentacao mov2 = movimentacaoRepo.save(GenerateMovimentacao.movimentacaoDataValida2(contaCriada.getId()));
 
     //     LocalDate data1 = LocalDate.of(2023, 03, 17);
     //     LocalDate data2 = LocalDate.of(2023, 03, 18);

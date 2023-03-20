@@ -32,7 +32,7 @@ public class GenerateConta {
                 .agencia("1235")
                 .conta(1)
                 .saldo(100)
-                .idCliente(GenerateCliente.clienteValido())
+                .idCliente(GenerateCliente.clienteNovo())
                 .build();
     }
 
@@ -42,7 +42,7 @@ public class GenerateConta {
                 .agencia("1234")
                 .conta(1)
                 .saldo(100)
-                .idCliente(GenerateCliente.clienteValido())
+                .idCliente(GenerateCliente.clienteNovo())
                 .build();
     }
 
@@ -52,7 +52,7 @@ public class GenerateConta {
                 .agencia("123")
                 .conta(1)
                 .saldo(100)
-                .idCliente(GenerateCliente.clienteValido())
+                .idCliente(GenerateCliente.clienteNovo())
                 .build();
     }
 
@@ -62,7 +62,7 @@ public class GenerateConta {
                 .agencia("0000")
                 .conta(1)
                 .saldo(100)
-                .idCliente(GenerateCliente.clienteValido())
+                .idCliente(GenerateCliente.clienteNovo())
                 .build();
     }
     
@@ -72,7 +72,7 @@ public class GenerateConta {
                 .agencia("1234")
                 .conta(5)
                 .saldo(100)
-                .idCliente(GenerateCliente.clienteValido())
+                .idCliente(GenerateCliente.clienteNovo())
                 .build();
     }
 
@@ -82,7 +82,7 @@ public class GenerateConta {
                 .agencia("1234")
                 .conta(5)
                 .saldo(0)
-                .idCliente(GenerateCliente.clienteValido())
+                .idCliente(GenerateCliente.clienteNovo())
                 .build();
     }
 
@@ -92,7 +92,7 @@ public class GenerateConta {
                 .agencia("1234")
                 .conta(5)
                 .saldo(0)
-                .idCliente(GenerateCliente.clienteValido())
+                .idCliente(GenerateCliente.clienteNovo())
                 .listaMovimentacao(GenerateMovimentacao.listaValida())
                 .build();
     }
@@ -113,7 +113,7 @@ public class GenerateConta {
                 .agencia("1234")
                 .conta(1)
                 .saldo(-1)
-                .idCliente(GenerateCliente.clienteValido())
+                .idCliente(GenerateCliente.clienteNovo())
                 .build();
     }
 
@@ -126,7 +126,7 @@ public class GenerateConta {
                 .agencia("1234")
                 .conta(1)
                 .saldo(-1)
-                .idCliente(GenerateCliente.clienteValido())
+                .idCliente(GenerateCliente.clienteNovo())
                 .build();
 
         Conta conta2 = Conta.builder()
@@ -134,7 +134,7 @@ public class GenerateConta {
                 .agencia("1234")
                 .conta(1)
                 .saldo(-1)
-                .idCliente(GenerateCliente.clienteValido())
+                .idCliente(GenerateCliente.clienteNovo())
                 .build();
 
         listaContas.add(conta1);

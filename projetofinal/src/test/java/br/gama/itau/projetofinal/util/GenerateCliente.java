@@ -24,9 +24,19 @@ public class GenerateCliente {
     }
     
 
-    public static Cliente clienteValido() {
+    public static Cliente clienteNovo() {
         return Cliente.builder()
                 .id(1)
+                .nomeCliente("ClienteValido 1")
+                .cpf("CpfValido 1")
+                .telefone("TelefoneValido 1")
+                .listaContas(GenerateConta.ListaDeContaValidaSemCliente())
+                .build();
+    }
+
+    public static Cliente clienteNovo2() {
+        return Cliente.builder()
+                
                 .nomeCliente("ClienteValido 1")
                 .cpf("CpfValido 1")
                 .telefone("TelefoneValido 1")

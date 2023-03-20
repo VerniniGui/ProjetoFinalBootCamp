@@ -48,8 +48,8 @@ public class MovimentacaoControllerITTest {
     @BeforeEach
     public void setup() {
         movimentacaoRepo.deleteAll();
-        clienteRepo.deleteAll();
         contaRepo.deleteAll();
+        clienteRepo.deleteAll();
     }
 
     // @Test

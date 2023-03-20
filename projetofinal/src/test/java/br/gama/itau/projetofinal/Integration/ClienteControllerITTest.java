@@ -93,7 +93,7 @@ public class ClienteControllerITTest {
 
     @Test
     public void recuperaContasClientes_returnListContas_whenIdValido() throws Exception {
-        Cliente clienteValido = GenerateCliente.clienteValido();
+        Cliente clienteValido = GenerateCliente.clienteNovo2();
 
         Cliente clienteCriado = clienteRepo.save(clienteValido);
 
