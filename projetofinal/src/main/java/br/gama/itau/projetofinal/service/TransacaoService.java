@@ -46,7 +46,26 @@ public class TransacaoService {
         return retornoDepositar;
     }
 
-    
+    public boolean transferir(int  idContaOrigem, int idContaDestino, double valor){
+        
+        
+       Conta contaOrigem = contaService.recuperarPeloNumero(idContaOrigem);
+       Conta contaDestino = contaService.recuperarPeloNumero(idContaDestino);
 
     
-}
+    // Realiza a transfêrencia entre as contas, sacando da origem e depositando na destino   
+    if(contaOrigem != null && contaDestino != null && valor <= 0){
+        contaService.sacar(valor, contaOrigem.getId());      
+        contaService.depositar(valor, contaDestino.getId());
+        
+        // Realiza o cadastro das movimentações realizadas pelas contas
+        movimentacaoService.cadastrarMovimentacao(new Movimentacao(-1, LocalDate.now(),valor, 2, "Tranferência - Saque", contaOrigem));
+        movimentacaoService.cadastrarMovimentacao(new Movimentacao(-1, LocalDate.now(),valor, 1, "Tranferência - Deposito", contaDestino));
+
+        return true;
+    }
+    
+    return false;
+    
+    }
+}    
