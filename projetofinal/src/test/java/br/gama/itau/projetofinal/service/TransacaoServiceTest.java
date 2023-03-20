@@ -42,7 +42,7 @@ public class TransacaoServiceTest {
     }
 
     @Test
-    public void sacar_returnTrue_whenDadosInvalidos() {
+    public void sacar_returnFalse_whenDadosInvalidos() {
         BDDMockito.when(contaService.sacar(ArgumentMatchers.any(Double.class), ArgumentMatchers.any(Integer.class)))
                 .thenReturn(false);
 
@@ -52,4 +52,55 @@ public class TransacaoServiceTest {
         assertThat(resposta).isFalse();
 
     }
+
+    @Test
+    public void depositar_returnTrue_whenDadosValidos() {
+        BDDMockito.when(contaService.depositar(ArgumentMatchers.any(Double.class), ArgumentMatchers.any(Integer.class)))
+                .thenReturn(true);
+
+        Conta conta = GenerateConta.contaValida();
+        boolean resposta = service.depositar(conta.getId(), 100);
+
+        assertThat(resposta).isTrue();
+
+    }
+
+    @Test
+    public void depositar_returnFalse_whenDadosInvalidos() {
+        BDDMockito.when(contaService.depositar(ArgumentMatchers.any(Double.class), ArgumentMatchers.any(Integer.class)))
+                .thenReturn(false);
+
+        Conta conta = GenerateConta.contaValida();
+        boolean resposta = service.depositar(conta.getId(), 100);
+
+        assertThat(resposta).isFalse();
+
+    }
+
+    // @Test
+    // public void transferir_returnTrue_whenDadosValidos() {
+    //     BDDMockito.when(contaService.depositar(ArgumentMatchers.any(Double.class), ArgumentMatchers.any(Integer.class)))
+    //             .thenReturn(true);
+
+    //     Conta conta = GenerateConta.contaValida();
+    //     boolean resposta = service.depositar(conta.getId(), 100);
+
+    //     assertThat(resposta).isTrue();
+
+    // }
+
+    // @Test
+    // public void transferir_returnFalse_whenDadosInvalidos() {
+    //     BDDMockito.when(service.transferir(ArgumentMatchers.any(Integer.class), ArgumentMatchers.any(Integer.class), ArgumentMatchers.any(Double.class)))
+    //             .thenReturn(false);
+
+    //     Conta conta = GenerateConta.contaValida();
+    //     Conta conta2 = GenerateConta.contaValida2();
+
+
+    //     boolean resposta = service.transferir(conta.getId(),conta2.getId(), 100);
+
+    //     assertThat(resposta).isFalse();
+
+    // }
 }
