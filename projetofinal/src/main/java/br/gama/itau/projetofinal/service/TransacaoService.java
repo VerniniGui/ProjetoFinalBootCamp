@@ -1,7 +1,6 @@
 package br.gama.itau.projetofinal.service;
 
 import java.time.LocalDate;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
