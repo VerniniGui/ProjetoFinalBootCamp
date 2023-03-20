@@ -1,6 +1,7 @@
 package br.gama.itau.projetofinal.service;
 
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,9 +53,9 @@ public class TransacaoService {
        Conta contaOrigem = contaService.recuperarPeloNumero(idContaOrigem);
        Conta contaDestino = contaService.recuperarPeloNumero(idContaDestino);
 
-
+    
     // Realiza a transfêrencia entre as contas, sacando da origem e depositando na destino   
-    if(contaOrigem != null && contaDestino != null){
+    if(contaOrigem != null && contaDestino != null && valor >= 0){
         contaService.sacar(valor, contaOrigem.getId());      
         contaService.depositar(valor, contaDestino.getId());
         
