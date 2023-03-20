@@ -49,9 +49,17 @@ public class ClienteController {
     public ResponseEntity<List<ContaDto>> recuperaContasCliente(@PathVariable Integer id) {
 
         try {
-            return ResponseEntity.ok(service.recuperarContas(id));
+            
+            List<ContaDto> listaContas = service.recuperarContas(id);
+
+            if(listaContas != null){
+                return ResponseEntity.ok(listaContas);
+            }
+            
         } catch (NoSuchElementException e) {
             throw new MyNoSuchElementException("Nenhuma conta encontrada");
         }
+
+        return ResponseEntity.notFound().build();
     }
 }
