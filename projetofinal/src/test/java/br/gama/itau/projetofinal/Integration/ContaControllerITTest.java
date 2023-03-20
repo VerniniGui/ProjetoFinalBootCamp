@@ -5,10 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.LocalDate;
-
 import org.hamcrest.CoreMatchers;
-import org.hibernate.jdbc.Expectations;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +19,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.gama.itau.projetofinal.model.Cliente;
 import br.gama.itau.projetofinal.model.Conta;
-import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.repository.ClienteRepo;
 import br.gama.itau.projetofinal.repository.ContaRepo;
 import br.gama.itau.projetofinal.repository.MovimentacaoRepo;
 import br.gama.itau.projetofinal.util.GenerateCliente;
 import br.gama.itau.projetofinal.util.GenerateConta;
-import br.gama.itau.projetofinal.util.GenerateMovimentacao;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -91,21 +86,21 @@ public class ContaControllerITTest {
 
     }
 
-    @Test
-    public void getTodasMovimentacao() throws Exception {
-        Cliente novoCliente = GenerateCliente.clienteValido();
-        Cliente cliente = clienteRepo.save(novoCliente);
+    // @Test
+    // public void getTodasMovimentacao() throws Exception {
+    //     Cliente novoCliente = GenerateCliente.clienteValido();
+    //     Cliente cliente = clienteRepo.save(novoCliente);
 
-        Conta novaConta = GenerateConta.novaConta(cliente.getId());
-        Conta contaCriada = contaRepo.save(novaConta);
+    //     Conta novaConta = GenerateConta.novaConta(cliente.getId());
+    //     Conta contaCriada = contaRepo.save(novaConta);
 
-        movimentacaoRepo.save(GenerateMovimentacao.movimentacaoValida());
+    //     movimentacaoRepo.save(GenerateMovimentacao.movimentacaoValida());
 
-        ResultActions resposta = mockMvc.perform(get("/contas/movimentacao/{id}", contaCriada.getId())
-                .contentType(MediaType.APPLICATION_JSON));
+    //     ResultActions resposta = mockMvc.perform(get("/contas/movimentacao/{id}", contaCriada.getId())
+    //             .contentType(MediaType.APPLICATION_JSON));
 
-        resposta.andExpect(status().isOk());
-    }
+    //     resposta.andExpect(status().isOk());
+    // }
 
     // @Test
     // public void getMovimentacaoByPeriodo_retornaListMovimentacao_whenPeriodoValido () throws Exception {

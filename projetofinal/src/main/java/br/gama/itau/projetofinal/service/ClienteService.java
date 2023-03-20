@@ -82,12 +82,16 @@ public class ClienteService {
 
         try {
             Optional<Cliente> optional = repo.findById(id);
+            if (optional.isEmpty()) {
+                return null;
+            }
             Cliente cliente = (Cliente) optional.get();
+
             List<Conta> listaContas = cliente.getListaContas();
 
             List<ContaDto> listaContasDto = new ArrayList<>();
 
-            if (listaContas.size() == 0) {
+            if (listaContas == null) {
                 return null;
             }
 

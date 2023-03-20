@@ -29,7 +29,7 @@ public class GenerateConta {
 
     public static Conta novaConta2() {
         return Conta.builder()
-                .agencia("1235")
+                .agencia("1234")
                 .conta(1)
                 .saldo(100)
                 .idCliente(GenerateCliente.clienteValido())
@@ -151,6 +151,9 @@ public class GenerateConta {
                 .agencia("1234")
                 .conta(1)
                 .saldo(100)
+                .idCliente(Cliente.builder()
+                    .id(1)
+                    .nomeCliente("ClienteValido 1").build())
                 .build();
 
         Conta conta2 = Conta.builder()
@@ -158,6 +161,9 @@ public class GenerateConta {
                 .agencia("1234")
                 .conta(1)
                 .saldo(200)
+                .idCliente(Cliente.builder()
+                    .id(1)
+                    .nomeCliente("ClienteValido 1").build())
                 .build();
 
         listaContas.add(conta1);
