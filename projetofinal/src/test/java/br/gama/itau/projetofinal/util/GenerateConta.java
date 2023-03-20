@@ -21,7 +21,7 @@ public class GenerateConta {
                 .id(1)
                 .agencia("1234")
                 .conta(1)
-                .saldo(100)
+                .saldo(200)
                 .idCliente(GenerateCliente.clienteValido())
                 .build();
     }
