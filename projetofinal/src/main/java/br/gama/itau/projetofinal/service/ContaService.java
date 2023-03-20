@@ -3,6 +3,7 @@ package br.gama.itau.projetofinal.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import br.gama.itau.projetofinal.dto.ClienteDto;
 import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.dto.MovimentacaoDto;
+import br.gama.itau.projetofinal.exception.MyNoSuchElementException;
 import br.gama.itau.projetofinal.exception.MyNotFoundException;
 import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.model.Movimentacao;
@@ -61,9 +63,15 @@ public class ContaService {
     }
 
     public Conta recuperarPeloNumero(Integer numero) {
-
-        Optional<Conta> optional = repo.findById(numero);
-        Conta conta = optional.get();
+        Optional<Conta>  optional = repo.findById(numero);
+        Conta conta;
+        try {
+            conta = optional.get();
+        } catch (NoSuchElementException e) {
+            throw new MyNoSuchElementException("Conta não encontrada");
+        }
+        
+        
         return conta;
     }
 

@@ -34,4 +34,16 @@ public class TransacaoController {
         }
         return ResponseEntity.badRequest().build();
     }
-} 
+
+    @PostMapping("/transferir/{idContaOrigem},{idContaDestino},{valor}")
+    public ResponseEntity<HttpStatus> transferirConta(@PathVariable Integer idContaOrigem,
+            @PathVariable Integer idContaDestino, @PathVariable Double valor) {
+
+        boolean respostaTransferir = service.transferir(idContaOrigem, idContaDestino, valor);
+        if (respostaTransferir) {
+            return ResponseEntity.accepted().build();
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
+}

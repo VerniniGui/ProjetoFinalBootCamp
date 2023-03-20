@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.gama.itau.projetofinal.dto.ClienteDto;
+import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.exception.MyNoSuchElementException;
 import br.gama.itau.projetofinal.model.Cliente;
-import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.service.ClienteService;
 
 @RestController
@@ -46,7 +46,7 @@ public class ClienteController {
     }
 
     @GetMapping("/contas/{id}")
-    public ResponseEntity<List<Conta>> recuperaContasCliente(@PathVariable Integer id) {
+    public ResponseEntity<List<ContaDto>> recuperaContasCliente(@PathVariable Integer id) {
 
         try {
             return ResponseEntity.ok(service.recuperarContas(id));

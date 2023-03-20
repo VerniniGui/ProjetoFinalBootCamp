@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.gama.itau.projetofinal.dto.ClienteDto;
+import br.gama.itau.projetofinal.dto.ContaDto;
 import br.gama.itau.projetofinal.exception.MyDataIntegrityViolationException;
 import br.gama.itau.projetofinal.exception.MyNotFoundException;
 import br.gama.itau.projetofinal.model.Cliente;
@@ -64,12 +65,19 @@ public class ClienteService {
 
     }
 
-    public List<Conta> recuperarContas(int id) {
+    // Retorna a lista de contas do cliente buscado pelo id
+    public List<ContaDto> recuperarContas(int id) {
         Optional<Cliente> optional = repo.findById(id);
         Cliente cliente = (Cliente) optional.get();
-        
+        List<Conta> listaContas = cliente.getListaContas();
+        List<ContaDto> listaContasDto = new ArrayList<>();
 
-        return cliente.getListaContas();
+        for (Conta conta : listaContas) {
+            listaContasDto.add(new ContaDto(conta));
+        }
+
+
+        return listaContasDto;
 
     }
 
