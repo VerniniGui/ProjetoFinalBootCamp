@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.model.Movimentacao;
 
 public class GenerateMovimentacao {
@@ -11,13 +12,13 @@ public class GenerateMovimentacao {
         List<Movimentacao> listaValida = new ArrayList<>();
 
         Movimentacao novaMovi = new Movimentacao(1,
-                LocalDate.now(),
+                LocalDate.of(2023, 03, 17),
                 200.0,
                 1,
                 "Teste1",
                 GenerateConta.contaValida());
         Movimentacao novaMov2 = new Movimentacao(2,
-                LocalDate.now(),
+                LocalDate.of(2023, 03, 18),
                 200.0,
                 1,
                 "Teste1",
@@ -101,6 +102,28 @@ public class GenerateMovimentacao {
             .tipo(4)
             .descricao("teste")
             .conta(GenerateConta.contaValida())
+            .build();
+    }
+
+    public static Movimentacao movimentacaoDataValida1(int id) {
+       
+        return Movimentacao.builder()
+            .dataOperacao(LocalDate.of(2023, 03, 17))
+            .valor(1)
+            .tipo(1)
+            .descricao("teste")
+            .conta(Conta.builder().id(id).build())
+            .build();
+    }
+
+    public static Movimentacao movimentacaoDataValida2(int id) {
+       
+        return Movimentacao.builder()
+            .dataOperacao(LocalDate.of(2023, 03, 18))
+            .valor(1)
+            .tipo(1)
+            .descricao("teste")
+            .conta(Conta.builder().id(id).build())
             .build();
     }
 
