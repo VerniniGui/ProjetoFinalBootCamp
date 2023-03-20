@@ -6,4 +6,5 @@ import br.gama.itau.projetofinal.model.Cliente;
 
 public interface ClienteRepo extends CrudRepository<Cliente, Integer> {
 
+    
 }

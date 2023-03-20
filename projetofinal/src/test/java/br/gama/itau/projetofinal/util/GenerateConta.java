@@ -1,5 +1,8 @@
 package br.gama.itau.projetofinal.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.gama.itau.projetofinal.model.Conta;
 
 public class GenerateConta {
@@ -83,4 +86,55 @@ public class GenerateConta {
                 .idCliente(GenerateCliente.clienteValido())
                 .build();
     }
+
+
+    public static List<Conta> ListaDeContaValida() {
+        List<Conta> listaContas = new ArrayList<>();
+        
+       Conta conta1 = Conta.builder()
+                .id(1)
+                .agencia("1234")
+                .conta(1)
+                .saldo(-1)
+                .idCliente(GenerateCliente.clienteValido())
+                .build();
+
+        Conta conta2 = Conta.builder()
+                .id(2)
+                .agencia("1234")
+                .conta(1)
+                .saldo(-1)
+                .idCliente(GenerateCliente.clienteValido())
+                .build();
+
+        listaContas.add(conta1);
+        listaContas.add(conta2);        
+
+        
+        return listaContas;        
+    }
+
+    public static List<Conta> ListaDeContaValidaSemCliente() {
+        List<Conta> listaContas = new ArrayList<>();
+       Conta conta1 = Conta.builder()
+                .id(1)
+                .agencia("1234")
+                .conta(1)
+                .saldo(100)
+                .build();
+
+        Conta conta2 = Conta.builder()
+                .id(2)
+                .agencia("1234")
+                .conta(1)
+                .saldo(200)
+                .build();
+
+        listaContas.add(conta1);
+        listaContas.add(conta2);        
+
+        
+        return listaContas;        
+    }
 }
+
