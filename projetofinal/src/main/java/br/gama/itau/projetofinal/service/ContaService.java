@@ -147,11 +147,12 @@ public class ContaService {
     public boolean sacar (double valor, int id) {
         Optional<Conta> optional = repo.findById(id);
 
-        if (optional.isPresent() && valor > 0) {
+        if (optional.isPresent()) {
             Conta conta = optional.get();
-            if (conta.getSaldo() <= valor) {
+            if (conta.getSaldo() < valor) {
                 return false;
             }
+            
             conta.setSaldo(conta.getSaldo()-valor);
             repo.save(conta);
             return true;

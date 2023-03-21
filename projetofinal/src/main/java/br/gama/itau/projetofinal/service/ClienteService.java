@@ -77,7 +77,7 @@ public class ClienteService {
         Optional<Cliente> optional = repo.findById(id);
 
         if (optional.isEmpty()) {
-            throw new MyNotFoundException("Cliente aão encontrado");
+            throw new MyNotFoundException("Cliente não encontrado");
         }
         Cliente cliente = optional.get();
         ClienteDto clienteDto = new ClienteDto(cliente);
