@@ -24,7 +24,11 @@ public class ClienteService {
     private ClienteRepo repo;
 
 
-
+    //Responsavel por cadastrar um novo cliente no banco de dados
+    //quando o nome for null - "Nome não cadastrado"
+    //quando o CPF não é null
+    //quando o Telefone não é null
+    //Caso o cliente já for cadastrado, não permite o cadastro
     public Cliente cadastrarCliente(Cliente cliente) {
 
         Cliente novoCliente = cliente;
@@ -51,6 +55,8 @@ public class ClienteService {
 
     };
 
+    //Traz uma lista de clientes já cadastrados
+    //Caso a lista for vazia - "Nenhum cliente encontrado"
     public List<ClienteDto> recuperarTodos() {
         List<Cliente> list = (List<Cliente>) repo.findAll();
         List<ClienteDto> lClienteDTO = new ArrayList<>();
@@ -64,7 +70,9 @@ public class ClienteService {
         }
         return lClienteDTO;
     };
-
+    
+    //Traz um cliente valido procurando por um id específico
+    //Caso o Id procurado não existir no banco, "cliente não encontrado"
     public ClienteDto recuperarPeloId(int id) {
         Optional<Cliente> optional = repo.findById(id);
 

@@ -22,6 +22,7 @@ public class TransacaoService {
             return false;
         }
 
+        //Cria uma movimentacao do tipo debito e faz um sque quando o ID e os valores são validos
         Conta conta = contaService.recuperarPeloNumero(id);
         Movimentacao movimentacao = new Movimentacao(-1, LocalDate.now(), valor, 2, "Saque", conta);
         movimentacaoService.cadastrarMovimentacao(movimentacao);
@@ -31,6 +32,7 @@ public class TransacaoService {
         return retornoSacar;
     }
 
+    //Cria uma movimentacao do tipo credito e faz um deposito quando o ID e os valores são validos
     public boolean depositar(int id, double valor) {
         if (valor <= 0 || id <= 0) {
             return false;
@@ -45,6 +47,7 @@ public class TransacaoService {
         return retornoDepositar;
     }
 
+    //realiza uma transferência de valores de uma conta Origem para uma conta destino
     public boolean transferir(int idContaOrigem, int idContaDestino, double valor) {
 
         Conta contaOrigem = contaService.recuperarPeloNumero(idContaOrigem);

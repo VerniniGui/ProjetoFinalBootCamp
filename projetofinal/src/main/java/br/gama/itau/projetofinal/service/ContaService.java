@@ -32,6 +32,12 @@ public class ContaService {
     @Autowired
     private MovimentacaoService movimentacaoService;
 
+    //Cria uma conta e armazena em um banco de dados - retornando também o nome do Cliente responsavel pela conta
+    //Se a Agência não for 0000
+    //Se a Agencia não for diferente de 4
+    //se a conta não for diferente de 1, 2 ou 3
+    //se o saldo não for menor que 0
+    //Se o lciente existir
     public ContaDto adiconarConta(Conta conta) {
         if (conta.getAgencia().equals("0000")) {
             return null;
@@ -61,12 +67,16 @@ public class ContaService {
         return contaDto;
     }
 
+    //Recupera a conta pelo id da conta
+    //quando o id informado é valido
     public ContaDto recuperarPeloNumeroContaDto(int numero) {
         Conta conta = recuperarPeloNumero(numero);
         ContaDto contaDto = new ContaDto(conta);
         return contaDto;
     }
 
+    //Recupera a conta pelo id da conta
+    //quando o id informado é valido
     public Conta recuperarPeloNumero(Integer numero) {
         Optional<Conta>  optional = repo.findById(numero);
         Conta conta;
@@ -95,6 +105,9 @@ public class ContaService {
     //     return contaAtualizada;
     // }
 
+
+    //Traz uma lista das movimentações referentes a uma conta específica
+    //se o Id da conta existir
     public List<MovimentacaoDto> recuperarMovimentacoes(int id) {
         LocalDate dataInicio = LocalDate.of(1945, 01, 02); //Data quando o Itaú foi criado
         LocalDate dataFinal = LocalDate.now();
@@ -102,6 +115,8 @@ public class ContaService {
         return retornaHistoricoMovimentacaoPorData(id, dataInicio, dataFinal);
     }
 
+    //Traz todas as movimentações de uma conta especifica em um período informado
+    //Se o Id for valido
     public List<MovimentacaoDto> retornaHistoricoMovimentacaoPorData(int id, LocalDate dataInicio, LocalDate dataFinal) throws MyNotFoundException{
 
         Optional<Conta> contaOp = repo.findById(id);
@@ -126,6 +141,9 @@ public class ContaService {
         return listaMoviDtoConta;
     }
 
+    //Ele recebe uma conta e um valor e realiza alteração no saldo da conta informada
+    //Se a conta for encontrada e se o valor não for negativo
+    //Se existir saldo suficiente na conta para realizar o saque.
     public boolean sacar (double valor, int id) {
         Optional<Conta> optional = repo.findById(id);
 
@@ -142,6 +160,8 @@ public class ContaService {
 
     }
 
+    //Ele recebe uma conta e um valor e realiza alteração no saldo da conta informada
+    //Se a conta for encontrada e se o valor for maior do que 0   
     public boolean depositar (double valor, int id) {
         Optional<Conta> optional = repo.findById(id);
         if (optional.isPresent() && valor > 0) {

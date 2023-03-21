@@ -16,6 +16,11 @@ public class MovimentacaoService {
     @Autowired
     private MovimentacaoRepo repo;
 
+    //Cadastra uma nova movimentacao
+    //Se o Id for -1
+    //se o id não for maior que 0
+    //se o valor for maior ou igual a 0
+    //se o tipo da movimentacao for 1 ou 2
     public Movimentacao cadastrarMovimentacao(Movimentacao novaMovimentacao) {
         Movimentacao movimentacaoInserida = null;
 
@@ -42,6 +47,7 @@ public class MovimentacaoService {
 
     }
 
+    //Retorna uma lista de movimentaçoes dentro de um intervalo de datas informadas
     public List<Movimentacao> recuperarMovimentacaoPeriodo(Conta conta, LocalDate dataInicio, LocalDate datafinal) {
         List<Movimentacao> listaMov = repo.findByContaAndDataOperacaoBetween(conta, dataInicio, datafinal);
 
