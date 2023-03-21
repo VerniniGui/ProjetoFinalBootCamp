@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.gama.itau.projetofinal.dto.ClienteDto;
@@ -46,6 +47,10 @@ public class ContaService {
 
         if (conta.getSaldo() < 0) {
             return null;
+        }
+
+        if(conta.getIdCliente() == null){
+            throw new DataIntegrityViolationException("Cliente invalido");
         }
 
         conta = repo.save(conta);
@@ -100,6 +105,11 @@ public class ContaService {
     public List<MovimentacaoDto> retornaHistoricoMovimentacaoPorData(int id, LocalDate dataInicio, LocalDate dataFinal) throws MyNotFoundException{
 
         Optional<Conta> contaOp = repo.findById(id);
+        if(contaOp.isEmpty()){
+            List<MovimentacaoDto> listaMoviDtoContaEmpty = new ArrayList<>();
+            return listaMoviDtoContaEmpty;
+        }
+
         Conta conta = contaOp.get();
 
 
@@ -119,7 +129,7 @@ public class ContaService {
     public boolean sacar (double valor, int id) {
         Optional<Conta> optional = repo.findById(id);
 
-        if (optional.isPresent()) {
+        if (optional.isPresent() && valor > 0) {
             Conta conta = optional.get();
             if (conta.getSaldo() <= valor) {
                 return false;

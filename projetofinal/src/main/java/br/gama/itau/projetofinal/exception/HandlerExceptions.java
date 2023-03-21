@@ -51,7 +51,7 @@ public class HandlerExceptions {
             org.springframework.http.converter.HttpMessageNotReadableException ex) {
         ExceptionDetails exceptionDetails = ExceptionDetails.builder()
                 .titulo("Tipo de dado invalido")
-                .mensagem("Formato da data invalido, tente YYYY/MM/DD")
+                .mensagem("Formato dos dados invalidos ou dado ausente")
                 .codigoStatus(HttpStatus.BAD_REQUEST.value())
 
                 .timestamp(LocalDateTime.now())
