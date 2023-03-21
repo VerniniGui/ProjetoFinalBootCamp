@@ -42,6 +42,26 @@ public class TransacaoServiceTest {
     }
 
     @Test
+    public void sacar_returnTrue_whenValorMenorIgualQuezero() {
+
+        Conta conta = GenerateConta.contaValida();
+        boolean resposta = service.sacar(conta.getId(), 0);
+
+        assertThat(resposta).isFalse();
+
+    }
+
+    @Test
+    public void sacar_returnTrue_whenIdMenorIgualZero() {
+        
+       
+        boolean resposta = service.sacar(0, 100);
+
+        assertThat(resposta).isFalse();
+
+    }
+
+    @Test
     public void sacar_returnFalse_whenDadosInvalidos() {
         BDDMockito.when(contaService.sacar(ArgumentMatchers.any(Double.class), ArgumentMatchers.any(Integer.class)))
                 .thenReturn(false);
@@ -77,30 +97,65 @@ public class TransacaoServiceTest {
 
     }
 
-    // @Test
-    // public void transferir_returnTrue_whenDadosValidos() {
-    //     BDDMockito.when(contaService.depositar(ArgumentMatchers.any(Double.class), ArgumentMatchers.any(Integer.class)))
-    //             .thenReturn(true);
+    @Test
+    public void depositar_returnTrue_whenValorMenorIgualQuezero() {
 
-    //     Conta conta = GenerateConta.contaValida();
-    //     boolean resposta = service.depositar(conta.getId(), 100);
+        Conta conta = GenerateConta.contaValida();
+        boolean resposta = service.depositar(conta.getId(), 0);
 
-    //     assertThat(resposta).isTrue();
+        assertThat(resposta).isFalse();
 
-    // }
+    }
 
-    // @Test
-    // public void transferir_returnFalse_whenDadosInvalidos() {
-    //     BDDMockito.when(service.transferir(ArgumentMatchers.any(Integer.class), ArgumentMatchers.any(Integer.class), ArgumentMatchers.any(Double.class)))
-    //             .thenReturn(false);
+    @Test
+    public void depositar_returnTrue_whenIdMenorIgualZero() {
+        
+       
+        boolean resposta = service.depositar(0, 100);
 
-    //     Conta conta = GenerateConta.contaValida();
-    //     Conta conta2 = GenerateConta.contaValida2();
+        assertThat(resposta).isFalse();
+
+    }
+
+    @Test
+    public void transferir_returnTrue_whenDadosValidos() {
+        BDDMockito.when(contaService.depositar(ArgumentMatchers.any(Double.class), ArgumentMatchers.any(Integer.class)))
+                .thenReturn(true);
+
+        Conta conta = GenerateConta.contaValida();
+        boolean resposta = service.depositar(conta.getId(), 100);
+
+        assertThat(resposta).isTrue();
+
+    }
+
+    @Test
+    public void transferir_returnFalse_whenDadosInvalidos() {
+        BDDMockito.when(contaService.recuperarPeloNumero(ArgumentMatchers.any(Integer.class)))
+                .thenReturn(GenerateConta.contaValida());
+
+        Conta conta = GenerateConta.contaValida();
+        Conta conta2 = GenerateConta.contaValida2();
 
 
-    //     boolean resposta = service.transferir(conta.getId(),conta2.getId(), 100);
+        boolean resposta = service.transferir(conta.getId(),conta2.getId(), 100);
 
-    //     assertThat(resposta).isFalse();
+        assertThat(resposta).isFalse();
 
-    // }
+    }
+
+
+    @Test
+    public void transferir_returnFalse_whenContaNula() {
+        
+
+        Conta conta = GenerateConta.novaConta2();
+        Conta conta2 = GenerateConta.contaValida2();
+
+
+        boolean resposta = service.transferir(conta.getId() ,conta2.getId(), 100);
+
+        assertThat(resposta).isFalse();
+
+    }
 }

@@ -13,8 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.repository.MovimentacaoRepo;
+import br.gama.itau.projetofinal.util.GenerateConta;
 import br.gama.itau.projetofinal.util.GenerateMovimentacao;
 
 @ExtendWith(MockitoExtension.class)
@@ -66,13 +68,14 @@ public class MovimentacaoServiceTest {
     @Test
     public void recuperarMovimentacaoPeriodo_returnlistaMovimentacao_whenQuandoAsDatasSaoValidas() {
         BDDMockito
-                .when(repo.findByDataOperacaoBetween(ArgumentMatchers.any(LocalDate.class),
+                .when(repo.findByContaAndDataOperacaoBetween(ArgumentMatchers.any(Conta.class), ArgumentMatchers.any(LocalDate.class),
                         ArgumentMatchers.any(LocalDate.class)))
                 .thenReturn(GenerateMovimentacao.listaValida());
 
+        Conta conta = GenerateConta.contaValida();        
         LocalDate dataInicio = LocalDate.of(2023, 03, 15);
         LocalDate dataFinal = LocalDate.of(2023, 03, 15);
-        List<Movimentacao> movimentacao = service.recuperarMovimentacaoPeriodo(dataInicio, dataFinal);
+        List<Movimentacao> movimentacao = service.recuperarMovimentacaoPeriodo(conta, dataInicio, dataFinal);
 
         assertThat(movimentacao).isNotNull();
     }
