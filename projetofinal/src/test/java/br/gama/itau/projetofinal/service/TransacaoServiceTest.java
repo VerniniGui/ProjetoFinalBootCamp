@@ -131,14 +131,12 @@ public class TransacaoServiceTest {
 
     @Test
     public void transferir_returnFalse_whenDadosInvalidos() {
-        BDDMockito.when(contaService.recuperarPeloNumero(ArgumentMatchers.any(Integer.class)))
-                .thenReturn(GenerateConta.contaValida());
 
         Conta conta = GenerateConta.contaValida();
         Conta conta2 = GenerateConta.contaValida2();
 
 
-        boolean resposta = service.transferir(conta.getId(),conta2.getId(), 100);
+        boolean resposta = service.transferir(conta.getId(),conta2.getId(), 0);
 
         assertThat(resposta).isFalse();
 
