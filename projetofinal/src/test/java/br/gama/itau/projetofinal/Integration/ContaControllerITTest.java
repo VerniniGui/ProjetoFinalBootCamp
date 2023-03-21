@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDate;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.gama.itau.projetofinal.model.Cliente;
 import br.gama.itau.projetofinal.model.Conta;
+import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.repository.ClienteRepo;
 import br.gama.itau.projetofinal.repository.ContaRepo;
 import br.gama.itau.projetofinal.repository.MovimentacaoRepo;
@@ -104,27 +107,27 @@ public class ContaControllerITTest {
         resposta.andExpect(status().isOk());
     }
 
-    // @Test
-    // public void getMovimentacaoByPeriodo_retornaListMovimentacao_whenPeriodoValido () throws Exception {
-    //     Cliente novoCliente = GenerateCliente.clienteNovo2();
-    //     Cliente cliente = clienteRepo.save(novoCliente);
+    @Test
+    public void getMovimentacaoByPeriodo_retornaListMovimentacao_whenPeriodoValido () throws Exception {
+        Cliente novoCliente = GenerateCliente.clienteNovo2();
+        Cliente cliente = clienteRepo.save(novoCliente);
 
-    //     Conta novaConta = GenerateConta.contaListaValida2(cliente.getId());
-    //     Conta contaCriada = contaRepo.save(novaConta);
+        Conta novaConta = GenerateConta.novaConta(cliente.getId());
+        Conta contaCriada = contaRepo.save(novaConta);
 
-    //     Movimentacao mov1 = movimentacaoRepo.save(GenerateMovimentacao.movimentacaoDataValida1(contaCriada.getId()));
-    //     Movimentacao mov2 = movimentacaoRepo.save(GenerateMovimentacao.movimentacaoDataValida2(contaCriada.getId()));
+        Movimentacao mov1 = movimentacaoRepo.save(GenerateMovimentacao.movimentacaoDataValida1(contaCriada.getId()));
+        Movimentacao mov2 = movimentacaoRepo.save(GenerateMovimentacao.movimentacaoDataValida2(contaCriada.getId()));
 
-    //     LocalDate data1 = LocalDate.of(2023, 03, 17);
-    //     LocalDate data2 = LocalDate.of(2023, 03, 18);
+        LocalDate data1 = LocalDate.of(2023, 03, 16);
+        LocalDate data2 = LocalDate.of(2023, 03, 19);
 
-    //     ResultActions resposta = mockMvc.perform(get("/conta/movimentacao/periodo/{id},{dataInicio},{dataFinal}", contaCriada.getId(), data1, data2)
-    //             .contentType(MediaType.APPLICATION_JSON));
+        ResultActions resposta = mockMvc.perform(get("/contas/movimentacao/periodo/{id},{dataInicio},{dataFinal}", contaCriada.getId(), "2023-03-16", "2023-03-19")
+                .contentType(MediaType.APPLICATION_JSON));
 
-    //     resposta.andExpect(status().isOk());
+        resposta.andExpect(status().isOk());
 
 
-    // }
+    }
 
 
 }

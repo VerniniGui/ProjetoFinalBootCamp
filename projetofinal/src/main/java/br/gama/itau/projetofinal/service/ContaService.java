@@ -113,7 +113,7 @@ public class ContaService {
     public List<MovimentacaoDto> retornaHistoricoMovimentacaoPorData(int id, LocalDate dataInicio, LocalDate dataFinal) throws MyNotFoundException{
         List<Movimentacao> listaMoviDto =  movimentacaoService.recuperarMovimentacaoPeriodo(dataInicio, dataFinal);       
         List<MovimentacaoDto> listaMoviDtoConta = new ArrayList<>();
-        
+
         for (Movimentacao movimentacao : listaMoviDto) {
             if(movimentacao.getConta().getId() == id){
                 listaMoviDtoConta.add(new MovimentacaoDto(movimentacao));
