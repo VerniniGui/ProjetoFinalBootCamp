@@ -54,8 +54,10 @@ public class TransacaoService {
 
     
     // Realiza a transfêrencia entre as contas, sacando da origem e depositando na destino   
-    if(contaOrigem != null && contaDestino != null && valor >= 0){
-        contaService.sacar(valor, contaOrigem.getId());      
+
+        if(contaOrigem != null && contaDestino != null && valor > 0){
+        contaService.sacar(valor, contaOrigem.getId());
+        }
         contaService.depositar(valor, contaDestino.getId());
         
         // Realiza o cadastro das movimentações realizadas pelas contas

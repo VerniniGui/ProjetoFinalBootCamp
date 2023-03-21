@@ -1,59 +1,73 @@
-package br.gama.itau.projetofinal.Integration;
+// package br.gama.itau.projetofinal.Integration;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
+// import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+// import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+// import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+// import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+// import org.springframework.boot.test.context.SpringBootTest;
+// import org.springframework.http.MediaType;
+// import org.springframework.test.web.servlet.MockMvc;
+// import org.springframework.test.web.servlet.ResultActions;
 
-import br.gama.itau.projetofinal.repository.ClienteRepo;
-import br.gama.itau.projetofinal.repository.ContaRepo;
-import br.gama.itau.projetofinal.repository.MovimentacaoRepo;
+// import com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
-public class MovimentacaoControllerITTest {
+// import br.gama.itau.projetofinal.model.Cliente;
+// import br.gama.itau.projetofinal.model.Conta;
+// import br.gama.itau.projetofinal.model.Movimentacao;
+// import br.gama.itau.projetofinal.repository.ClienteRepo;
+// import br.gama.itau.projetofinal.repository.ContaRepo;
+// import br.gama.itau.projetofinal.repository.MovimentacaoRepo;
+// import br.gama.itau.projetofinal.util.GenerateCliente;
+// import br.gama.itau.projetofinal.util.GenerateConta;
+// import br.gama.itau.projetofinal.util.GenerateMovimentacao;
 
-    @Autowired
-    private MockMvc mockMvc;
+// @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+// @AutoConfigureMockMvc
+// public class MovimentacaoControllerITTest {
 
-    @Autowired
-    private ObjectMapper objectMapper;
+//     @Autowired
+//     private MockMvc mockMvc;
 
-    @Autowired
-    private MovimentacaoRepo movimentacaoRepo;
+//     @Autowired
+//     private ObjectMapper objectMapper;
 
-    @Autowired
-    private ClienteRepo clienteRepo;
+//     @Autowired
+//     private MovimentacaoRepo movimentacaoRepo;
 
-    @Autowired
-    private ContaRepo contaRepo;
+//     @Autowired
+//     private ClienteRepo clienteRepo;
 
-    @BeforeEach
-    public void setup() {
-        movimentacaoRepo.deleteAll();
-        contaRepo.deleteAll();
-        clienteRepo.deleteAll();
-    }
+//     @Autowired
+//     private ContaRepo contaRepo;
 
-    // @Test
-    // public void newMovimentacao_returnMovimentacao_whenDadosMovimentacaoValido() throws Exception {
-    //     Cliente novoCliente = GenerateCliente.clienteValido();
-    //     Cliente cliente = clienteRepo.save(novoCliente);
+//     @BeforeEach
+//     public void setup() {
+//         movimentacaoRepo.deleteAll();
+//         contaRepo.deleteAll();
+//         clienteRepo.deleteAll();
+//     }
 
-    //     Conta novaConta = GenerateConta.contaValidaCliente(cliente.getId());
-    //     Conta contaCriada = contaRepo.save(novaConta);
+//     @Test
+//     public void newMovimentacao_returnMovimentacao_whenDadosMovimentacaoValido() throws Exception {
+//         Cliente novoCliente = GenerateCliente.novoCliente();
+//         Cliente cliente = clienteRepo.save(novoCliente);
 
-    //     Movimentacao mov1 = GenerateMovimentacao.movimentacaoDataValida1(contaCriada.getId());
-    //     Movimentacao movimentacaoCriada = movimentacaoRepo.save(mov1);
+//         Conta novaConta = GenerateConta.contaValidaCliente(cliente.getId());
+//         Conta contaCriada = contaRepo.save(novaConta);
 
-    //     ResultActions resposta = mockMvc.perform(post("/movimentacao")
-    //                     .content(objectMapper.writeValueAsString(movimentacaoCriada))
-    //                     .contentType(MediaType.APPLICATION_JSON));
+//         Movimentacao mov1 = GenerateMovimentacao.movimentacaoDataValida1(contaCriada.getId());
+//         Movimentacao movimentacaoCriada = movimentacaoRepo.save(mov1);
 
-    //     resposta.andExpect(status().isCreated());
+//         ResultActions resposta = mockMvc.perform(post("/movimentacao")
+//                         .content(objectMapper.writeValueAsString(movimentacaoCriada))
+//                         .contentType(MediaType.APPLICATION_JSON));
+
+//         resposta.andExpect(status().isCreated());
     // }
 
-}
+// }

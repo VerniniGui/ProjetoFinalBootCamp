@@ -105,7 +105,7 @@ public class ContaService {
 
         List<Movimentacao> listaMoviDto =  movimentacaoService.recuperarMovimentacaoPeriodo(conta, dataInicio, dataFinal);       
         List<MovimentacaoDto> listaMoviDtoConta = new ArrayList<>();
-        
+
         for (Movimentacao movimentacao : listaMoviDto) {
             if(movimentacao.getConta().getId() == id){
                 listaMoviDtoConta.add(new MovimentacaoDto(movimentacao));
