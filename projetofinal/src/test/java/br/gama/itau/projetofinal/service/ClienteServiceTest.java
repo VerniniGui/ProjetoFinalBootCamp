@@ -49,6 +49,19 @@ public class ClienteServiceTest {
 
         verify(repo, Mockito.times(1)).save(novoCliente);
     }
+    
+    @Test
+    public void cadastrarCliente_returnNovoClienteComNomePadrao_WhenNomeIsNull() {
+        BDDMockito.when(repo.save(ArgumentMatchers.any(Cliente.class)))
+                .thenReturn(GenerateCliente.clienteValido());
+
+        Cliente novoCliente = GenerateCliente.novoClienteNomeNull();
+        Cliente clienteCriado = service.cadastrarCliente(novoCliente);
+
+        assertThat(clienteCriado).isNotNull();
+        assertThat(clienteCriado.getNomeCliente()).isEqualTo("Nome não cadastrado");
+
+    }            
 
     @Test // Exception
     public void cadastrarCliente_returnException_WhenDadosInvalidos() {

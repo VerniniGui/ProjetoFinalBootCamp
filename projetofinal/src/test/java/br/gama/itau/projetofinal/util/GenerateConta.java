@@ -172,5 +172,15 @@ public class GenerateConta {
         
         return listaContas;        
     }
+
+    public static Conta contaValida2() {
+        return Conta.builder()
+                .id(1)
+                .agencia("1235")
+                .conta(1)
+                .saldo(100)
+                .idCliente(GenerateCliente.clienteNovo())
+                .build();
+    }
 }
 

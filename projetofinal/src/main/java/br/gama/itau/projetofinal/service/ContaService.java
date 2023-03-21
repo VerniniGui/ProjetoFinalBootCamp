@@ -91,19 +91,6 @@ public class ContaService {
     // }
 
     public List<MovimentacaoDto> recuperarMovimentacoes(int id) {
-        // Optional<Conta> optional = repo.findById(id);
-        // Conta conta = (Conta) optional.get();
-        // List<MovimentacaoDto> listaMovDto = new ArrayList<>();
-        // List<Movimentacao> listaMov = conta.getListaMovimentacao();
-
-        // if(listaMov != null){
-        //     for (Movimentacao x : listaMov) {
-        //         listaMovDto.add(new MovimentacaoDto(x));
-        //     }
-        //     return listaMovDto;
-        // }
-       
-        // return null;
         LocalDate dataInicio = LocalDate.of(1945, 01, 02); //Data quando o Itaú foi criado
         LocalDate dataFinal = LocalDate.now();
 
@@ -111,7 +98,12 @@ public class ContaService {
     }
 
     public List<MovimentacaoDto> retornaHistoricoMovimentacaoPorData(int id, LocalDate dataInicio, LocalDate dataFinal) throws MyNotFoundException{
-        List<Movimentacao> listaMoviDto =  movimentacaoService.recuperarMovimentacaoPeriodo(dataInicio, dataFinal);       
+
+        Optional<Conta> contaOp = repo.findById(id);
+        Conta conta = contaOp.get();
+
+
+        List<Movimentacao> listaMoviDto =  movimentacaoService.recuperarMovimentacaoPeriodo(conta, dataInicio, dataFinal);       
         List<MovimentacaoDto> listaMoviDtoConta = new ArrayList<>();
 
         for (Movimentacao movimentacao : listaMoviDto) {

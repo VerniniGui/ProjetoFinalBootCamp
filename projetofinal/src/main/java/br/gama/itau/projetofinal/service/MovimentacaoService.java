@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.gama.itau.projetofinal.model.Conta;
 import br.gama.itau.projetofinal.model.Movimentacao;
 import br.gama.itau.projetofinal.repository.MovimentacaoRepo;
 
@@ -14,9 +15,6 @@ public class MovimentacaoService {
 
     @Autowired
     private MovimentacaoRepo repo;
-
-    // @Autowired
-    // private TransacaoService service;
 
     public Movimentacao cadastrarMovimentacao(Movimentacao novaMovimentacao) {
         Movimentacao movimentacaoInserida = null;
@@ -36,40 +34,18 @@ public class MovimentacaoService {
 
         if (novaMovimentacao.getTipo() != 1 && novaMovimentacao.getTipo() != 2) {
             return null;
-        }
+        } 
 
-       
-            // if (novaMovimentacao.getTipo() == 1) {
-                
-            //     service.depositar(novaMovimentacao.getConta().getId(), novaMovimentacao.valor);
-            // } else {
-            //     service.sacar(novaMovimentacao.getConta().getId(), novaMovimentacao.valor);
-            // }
-
-            movimentacaoInserida = repo.save(novaMovimentacao);
-
-       
+        movimentacaoInserida = repo.save(novaMovimentacao);       
         
         return movimentacaoInserida;
 
     }
 
-    public List<Movimentacao> recuperarMovimentacaoPeriodo(LocalDate dataInicio, LocalDate datafinal) {
-        List<Movimentacao> listaMov = repo.findByDataOperacaoBetween(dataInicio, datafinal);
+    public List<Movimentacao> recuperarMovimentacaoPeriodo(Conta conta, LocalDate dataInicio, LocalDate datafinal) {
+        List<Movimentacao> listaMov = repo.findByContaAndDataOperacaoBetween(conta, dataInicio, datafinal);
 
         return listaMov;
     }
-
-    // public List<Movimentacao> recuperarTodas(int id) {
-    // List<Movimentacao> lista = (List<Movimentacao>) repo.findAll();
-    // List<Movimentacao> moviConta = new ArrayList<>();
-    // for (Movimentacao movimentacao : lista) {
-    // if(movimentacao.getConta().getId() == id) {
-    // moviConta.add(movimentacao);
-    // }
-    // }
-    // return moviConta;
-
-    // }
 
 }

@@ -83,4 +83,13 @@ public class GenerateCliente {
         return listaValida;
     }
 
+    public static Cliente novoClienteNomeNull() {
+        return Cliente.builder()
+                .id(1)
+                .cpf("CpfValido 1")
+                .telefone("TelefoneValido 1")
+                .listaContas(GenerateConta.ListaDeContaValidaSemCliente())
+                .build();
+    }
+
 }
