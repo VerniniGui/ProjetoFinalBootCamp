@@ -44,9 +44,12 @@ public class ContaController {
 
     @PostMapping
     public ResponseEntity<ContaDto> adicionarConta(@RequestBody Conta conta) {
-
         ContaDto novaConta = service.adiconarConta(conta);
-        return ResponseEntity.ok(novaConta);
+        if(novaConta != null){           
+            return ResponseEntity.ok(novaConta);
+        }
+        
+        return ResponseEntity.badRequest().build();
 
     }
 
