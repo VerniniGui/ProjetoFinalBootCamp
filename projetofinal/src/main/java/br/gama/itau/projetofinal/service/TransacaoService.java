@@ -22,7 +22,8 @@ public class TransacaoService {
             return false;
         }
 
-        //Cria uma movimentacao do tipo debito e faz um sque quando o ID e os valores são validos
+        // Cria uma movimentacao do tipo debito e faz um sque quando o ID e os valores
+        // são validos
         Conta conta = contaService.recuperarPeloNumero(id);
         Movimentacao movimentacao = new Movimentacao(-1, LocalDate.now(), valor, 2, "Saque", conta);
         movimentacaoService.cadastrarMovimentacao(movimentacao);
@@ -32,7 +33,8 @@ public class TransacaoService {
         return retornoSacar;
     }
 
-    //Cria uma movimentacao do tipo credito e faz um deposito quando o ID e os valores são validos
+    // Cria uma movimentacao do tipo credito e faz um deposito quando o ID e os
+    // valores são validos
     public boolean depositar(int id, double valor) {
         if (valor <= 0 || id <= 0) {
             return false;
@@ -46,6 +48,7 @@ public class TransacaoService {
 
         return retornoDepositar;
     }
+
 
     //realiza uma transferência de valores de uma conta Origem para uma conta destino
     //quando o idcontadestino é diferente do idcontaorigem
@@ -62,17 +65,19 @@ public class TransacaoService {
         // Realiza a transfêrencia entre as contas, sacando da origem e depositando na
         // destino
         if (contaOrigem != null && contaDestino != null && valor > 0) {
-            contaService.sacar(valor, contaOrigem.getId());
+            boolean retornoSacar = contaService.sacar(valor, contaOrigem.getId());
+            if (retornoSacar) {
+                contaService.depositar(valor, contaDestino.getId());
 
-            contaService.depositar(valor, contaDestino.getId());
+                // Realiza o cadastro das movimentações realizadas pelas contas
+                movimentacaoService.cadastrarMovimentacao(
+                        new Movimentacao(-1, LocalDate.now(), valor, 2, "Transferência - Saque", contaOrigem));
+                movimentacaoService.cadastrarMovimentacao(
+                        new Movimentacao(-1, LocalDate.now(), valor, 1, "Transferência - Deposito", contaDestino));
 
-            // Realiza o cadastro das movimentações realizadas pelas contas
-            movimentacaoService.cadastrarMovimentacao(
-                    new Movimentacao(-1, LocalDate.now(), valor, 2, "Tranferência - Saque", contaOrigem));
-            movimentacaoService.cadastrarMovimentacao(
-                    new Movimentacao(-1, LocalDate.now(), valor, 1, "Tranferência - Deposito", contaDestino));
+                return true;
+            }
 
-            return true;
         }
 
         return false;
