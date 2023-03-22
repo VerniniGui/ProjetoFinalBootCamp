@@ -48,14 +48,19 @@ public class TransacaoService {
     }
 
     //realiza uma transferência de valores de uma conta Origem para uma conta destino
+    //quando o idcontadestino é diferente do idcontaorigem
+    //quando o contaOrigem e contadestino é diferente de null e o valor é maior que 0
     public boolean transferir(int idContaOrigem, int idContaDestino, double valor) {
 
         Conta contaOrigem = contaService.recuperarPeloNumero(idContaOrigem);
         Conta contaDestino = contaService.recuperarPeloNumero(idContaDestino);
 
+        if (idContaDestino == idContaOrigem) {
+            return false;
+        }
+
         // Realiza a transfêrencia entre as contas, sacando da origem e depositando na
         // destino
-
         if (contaOrigem != null && contaDestino != null && valor > 0) {
             contaService.sacar(valor, contaOrigem.getId());
 
